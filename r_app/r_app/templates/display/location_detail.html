@@ -7,9 +7,15 @@
 
 <h3>{{ location.location_title|capfirst }}</h3>
 <h4>{{ location.location_title|capfirst }} Contact Info:</h4>
-<!--Contact info here-->
+<!--Contact info here but not database or model info in on this yet-->
 <h4>Regular Hours:</h4>
-<!--Calendar here-->
+<p>Monday: {{ calendar.monday_open }} - {{ calendar.monday_close }}</p>
+<p>Tuesday: {{ calendar.tuesday_open }} - {{ calendar.tuesday_close }}</p>
+<p>Wednesday: {{ calendar.wednesday_open }} - {{ calendar.wednesday_close }}</p>
+<p>Thursday: {{ calendar.thursday_open }} - {{ calendar.thursday_close }}</p>
+<p>Friday: {{ calendar.friday_open }} - {{ calendar.friday_close }}</p>
+<p>Saturday: {{ calendar.saturday_open }} - {{ calendar.saturday_close }}</p>
+<p>Sunday: {{ calendar.sunday_open }} - {{ calendar.sunday_close }}</p>
 <h4>Calendar Changes:</h4>
 <!--Exceptions Calendar here-->
 
