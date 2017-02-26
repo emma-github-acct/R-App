@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Location Detail</h1>
+<a href="{% url 'index' %}">Back to Home</a>
+
+<h3>{{ location.location_title|capfirst }}</h3>
+<h4>{{ location.location_title|capfirst }} Contact Info:</h4>
+<!--Contact info here-->
+<h4>Regular Hours:</h4>
+<!--Calendar here-->
+<h4>Calendar Changes:</h4>
+<!--Exceptions Calendar here-->
+
+{% endblock %}
