@@ -13,10 +13,10 @@ def index(request):
 def location_detail(request, id):
     try:
         location = Location.objects.get(id=id)
-        contact = Contact.objects.filter(location=location)
+        contacts = Contact.objects.filter(location_title=location)
     except Location.DoesNotExist:
         raise Http404('This item does not exist')
     return render(request, 'display/location_detail.html', {
         'location': location,
-        'contact': contact,
+        'contacts': contacts,
     })
