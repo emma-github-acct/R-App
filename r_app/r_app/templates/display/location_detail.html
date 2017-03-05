@@ -2,20 +2,26 @@
 
 {% block content %}
 
-<h1>Location Detail</h1>
+<h1>{{ location.location_title|capfirst }}</h1>
 <a href="{% url 'index' %}">Back to Home</a>
 
-<h3>{{ location.location_title|capfirst }}</h3>
 <h4>{{ location.location_title|capfirst }} Contact Info:</h4>
+{% for contact in contacts %}
+   <button class="contact_desk_name">{{ contact.desk_name|capfirst }}</button>
+   <button class="contact_name">{{ contact.name|capfirst }}</button>
+   <button class="contact_phone_number">{{ contact.phone_number|capfirst }}</button>
+{% endfor %}
 <!--Contact info here but not database or model info in on this yet-->
+
 <h4>Regular Hours:</h4>
-<p>Monday: {{ calendar.monday_open }} - {{ calendar.monday_close }}</p>
-<p>Tuesday: {{ calendar.tuesday_open }} - {{ calendar.tuesday_close }}</p>
-<p>Wednesday: {{ calendar.wednesday_open }} - {{ calendar.wednesday_close }}</p>
-<p>Thursday: {{ calendar.thursday_open }} - {{ calendar.thursday_close }}</p>
-<p>Friday: {{ calendar.friday_open }} - {{ calendar.friday_close }}</p>
-<p>Saturday: {{ calendar.saturday_open }} - {{ calendar.saturday_close }}</p>
-<p>Sunday: {{ calendar.sunday_open }} - {{ calendar.sunday_close }}</p>
+<p>Monday: {{ location.monday_open }} - {{ location.monday_close }}</p>
+<p>Tuesday: {{ location.tuesday_open }} - {{ location.tuesday_close }}</p>
+<p>Wednesday: {{ location.wednesday_open }} - {{ location.wednesday_close }}</p>
+<p>Thursday: {{ location.thursday_open }} - {{ location.thursday_close }}</p>
+<p>Friday: {{ location.friday_open }} - {{ location.friday_close }}</p>
+<p>Saturday: {{ location.saturday_open }} - {{ location.saturday_close }}</p>
+<p>Sunday: {{ location.sunday_open }} - {{ location.sunday_close }}</p>
+
 <h4>Calendar Changes:</h4>
 <!--Exceptions Calendar here-->
 

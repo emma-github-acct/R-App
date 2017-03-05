@@ -1,11 +1,22 @@
 from django.db import models
 
-class Location(models.Model):
-    location_title = models.CharField(max_length=20, default="Default")
-    map_number = models.IntegerField(default=0)
-    contact = models.IntegerField(default=0)
+class Contact(models.Model):
+    desk_name = models.CharField(max_length=40)
+    location_title = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=30)
+    phone_number = models.IntegerField(default=0)
     
-class Calendar(models.Model):
+    def __unicode__(self):
+        return self.desk_name
+    
+    def __str__(self):
+        return self.desk_name
+
+class Location(models.Model):
+    CLOSED = 0
     MIDNIGHT = 24
     ONE_AM = 1
     TWO_AM = 2
@@ -31,6 +42,7 @@ class Calendar(models.Model):
     TEN_PM = 22
     ELEVEN_PM = 23
     HOUR_CHOICES = (
+        (CLOSED, 'CLOSED'),
         (MIDNIGHT, '12 am'),
         (ONE_AM, '1 am'),
         (TWO_AM, '2 am'),
@@ -56,10 +68,10 @@ class Calendar(models.Model):
         (TEN_PM, '10 pm'),
         (ELEVEN_PM, '11 pm'),
     )
-    location = models.ForeignKey(
-        "Location",
-        on_delete=models.CASCADE,
-    )
+    
+    # Location - Fields
+    location_title = models.CharField(max_length=20)
+    map_number = models.IntegerField(default=0, unique=True)
     monday_open = models.IntegerField(
         choices=HOUR_CHOICES,
         default=24,
@@ -116,5 +128,11 @@ class Calendar(models.Model):
         choices=HOUR_CHOICES,
         default=24,
     )
+    
+    def __unicode__(self):
+        return self.location_title
+    
+    def __str__(self):
+        return self.location_title
     
     
