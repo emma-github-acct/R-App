@@ -1,4 +1,77 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+
+class EventsCalendar(models.Model):
+    #'location_title', 'event_title', 'room_id','date', 'opening_time', 'closing_time', 'event_information'
+    location_title = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE
+    )
+    event_title = models.CharField(max_length=50)
+    event_information = models.CharField(max_length=1000)
+    date = models.DateField()
+    opening_time = models.IntegerField(default = 9)
+    closing_time = models.IntegerField(default = 5)
+    room_id = models.IntegerField(default = 0)
+
+    def __unicode__(self):
+        return self.location_title
+
+    def __unicode__(self):
+        return self.date
+
+    def __unicode__(self):
+        return self.opening_time
+
+    def _unicode_(self):
+        return self.closing_time
+
+class ExceptionsCalendar(models.Model):
+    #'location_title', 'event_title', date', 'opening_time', 'closing_time'
+    location_title = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE
+    )
+    event_title = models.ForeignKey(
+        "EventsCalendar",
+        on_delete=models.CASCADE
+    )
+    #We need to define these tables more clearly
+    date = models.DateField()
+    opening_time = models.IntegerField(default = 9)
+    closing_time = models.IntegerField(default = 5)
+
+    def __unicode__(self):
+        return self.location_title
+
+    def __unicode__(self):
+        return self.date
+
+    def __unicode__(self):
+        return self.opening_time
+
+    def _unicode_(self):
+        return self.closing_time
+
+
+class NormalHours(models.Model):
+    #location_title', 'day_id', 'opening_time', 'closing_time'
+    location_title = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE
+    )
+    day_id = models.IntegerField(default = 0)
+    opening_time = models.IntegerField(default = 9)
+    closing_time = models.IntegerField(default = 5)
+
+    def __unicode__(self):
+        return self.location_title
+
+    def __unicode__(self):
+        return self.opening_time
+
+    def _unicode_(self):
+        return self.closing_time
 
 class Contact(models.Model):
     desk_name = models.CharField(max_length=40)
@@ -6,9 +79,11 @@ class Contact(models.Model):
         "Location",
         on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=30)
-    phone_number = models.IntegerField(default=0)
-    
+    contact_name = models.CharField(max_length=30)
+    #phone_number = models.IntegerField(default=0)
+    phone_number=PhoneNumberField()
+    fax_number=PhoneNumberField(blank=True)
+
     def __unicode__(self):
         return self.desk_name
     
@@ -16,8 +91,8 @@ class Contact(models.Model):
         return self.desk_name
 
 class Location(models.Model):
-    CLOSED = 0
-    MIDNIGHT = 24
+    CLOSED = 24
+    MIDNIGHT = 0
     ONE_AM = 1
     TWO_AM = 2
     THREE_AM = 3
@@ -71,18 +146,18 @@ class Location(models.Model):
     
     # Location - Fields
     location_title = models.CharField(max_length=20)
-    map_number = models.IntegerField(default=0, unique=True)
+    map_id = models.IntegerField(default=0, unique=True)
     monday_open = models.IntegerField(
         choices=HOUR_CHOICES,
         default=24,
     )
     monday_close = models.IntegerField(
         choices=HOUR_CHOICES,
-        default=24,
+        default=24
     )
     tuesday_open = models.IntegerField(
         choices=HOUR_CHOICES,
-        default=24,
+        default=24
     )
     tuesday_close = models.IntegerField(
         choices=HOUR_CHOICES,
