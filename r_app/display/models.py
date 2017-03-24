@@ -15,16 +15,8 @@ class EventsCalendar(models.Model):
     room_id = models.IntegerField(default = 0)
 
     def __unicode__(self):
-        return self.location_title
-
-    def __unicode__(self):
         return self.date
 
-    def __unicode__(self):
-        return self.opening_time
-
-    def _unicode_(self):
-        return self.closing_time
 
 class ExceptionsCalendar(models.Model):
     #'location_title', 'event_title', date', 'opening_time', 'closing_time'
