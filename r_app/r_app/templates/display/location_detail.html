@@ -8,19 +8,70 @@
 <h4>{{ location.location_title|capfirst }} Contact Info:</h4>
 {% for contact in contacts %}
    <button class="contact_desk_name">{{ contact.desk_name|capfirst }}</button>
-   <button class="contact_name">{{ contact.name|capfirst }}</button>
+   <button class="contact_name">{{ contact.contact_name|capfirst }}</button>
    <button class="contact_phone_number">{{ contact.phone_number|capfirst }}</button>
 {% endfor %}
 <!--Contact info here but not database or model info in on this yet-->
 
 <h4>Regular Hours:</h4>
-<p>Monday: {{ location.monday_open }} - {{ location.monday_close }}</p>
-<p>Tuesday: {{ location.tuesday_open }} - {{ location.tuesday_close }}</p>
-<p>Wednesday: {{ location.wednesday_open }} - {{ location.wednesday_close }}</p>
-<p>Thursday: {{ location.thursday_open }} - {{ location.thursday_close }}</p>
-<p>Friday: {{ location.friday_open }} - {{ location.friday_close }}</p>
-<p>Saturday: {{ location.saturday_open }} - {{ location.saturday_close }}</p>
-<p>Sunday: {{ location.sunday_open }} - {{ location.sunday_close }}</p>
+<ul>
+    <li> Monday:
+        <span id={{ location.location_title|add:"-mondayOpen" }}>
+            {{ location.monday_open }}
+        </span> -
+        <span id={{ location.location_title|add:"-mondayClose" }}>
+            {{ location.monday_close }}
+        </span>
+    </li>
+    <li> Tuesday:
+        <span id={{ location.location_title|add:"-tuesdayOpen" }}>
+            {{ location.tuesday_open }}
+        </span> -
+        <span id={{ location.location_title|add:"-tuesdayClose" }}>
+            {{ location.tuesday_close }}
+        </span>
+    </li>
+    <li> Wednesday:
+        <span id={{ location.location_title|add:"-wednesdayOpen" }}>
+            {{ location.wednesday_open }}
+        </span> -
+        <span id={{ location.location_title|add:"-wednesdayClose" }}>
+            {{ location.wednesday_close }}
+        </span>
+    </li>
+    <li> Thrusday:
+        <span id={{ location.location_title|add:"-thursdayOpen" }}>
+            {{ location.thursday_open }}
+        </span> -
+        <span id={{ location.location_title|add:"-thursdayClose" }}>
+            {{ location.thursday_close }}
+        </span>
+    </li>
+    <li> Friday:
+        <span id={{ location.location_title|add:"-fridayOpen" }}>
+            {{ location.friday_open }}
+        </span> -
+        <span id={{ location.location_title|add:"-fridayClose" }}>
+            {{ location.friday_close }}
+        </span>
+    </li>
+    <li> Saturday:
+        <span id={{ location.location_title|add:"-saturdayOpen" }}>
+            {{ location.saturday_open }}
+        </span> -
+        <span id={{ location.location_title|add:"-saturdayClose" }}>
+            {{ location.saturday_close }}
+        </span>
+    </li>
+    <li> Sunday:
+        <span id={{ location.location_title|add:"-sundayOpen" }}>
+            {{ location.sunday_open }}
+        </span> -
+        <span id={{ location.location_title|add:"-sundayClose" }}>
+            {{ location.sunday_close }}
+        </span>
+    </li>
+</ul>
 
 <h4>Calendar Changes:</h4>
 <!--Exceptions Calendar here-->

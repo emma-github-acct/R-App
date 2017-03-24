@@ -2,13 +2,44 @@
 
 {% block content %}
    <h1>Welcome to R-App</h1>
-   <ul>
+
        {% for location in locations %}
-          <li>
+
+          <button id={{ location.location_title|capfirst }}>
+              
               <a href="{% url 'location_detail' location.id %}">
                   {{ location.location_title|capfirst }}
               </a>
-          </li>
+
+          </button>
+
        {% endfor %}
-   </ul>
+
+<h2>Moment Date</h2>
+<!-- container for Moment.js output -->
+<div id="displayMoment"></div>
+
+<h2>JavaScript Date</h2>
+<!-- container for JavaScript Date output -->
+<div id="displayJsDate"></div>
+
+<script type="text/javascript">
+(function()
+{
+  // instantiate a moment object
+  var NowMoment = moment();
+  
+  // instantiate a JavaScript Date object
+  var NowDate = new Date();
+  
+  // display value of moment object in #displayMoment div
+  var eDisplayMoment = document.getElementById('displayMoment');
+  eDisplayMoment.innerHTML = NowMoment;
+  
+  // display value of Date object in #displayJsDate div
+  var eDisplayDate = document.getElementById('displayJsDate');
+  eDisplayDate.innerHTML = NowDate;
+})();
+</script>
+
 {% endblock %}
