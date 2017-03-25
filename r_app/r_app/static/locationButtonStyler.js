@@ -11,18 +11,31 @@ RAPP.LocationButtonStyler = ( function() {
     var CLOSING_SOON_STYLE = "closingSoonLocation";
     var OPEN_STYLE = "openLocation";
     var CLOSED_STYLE = "closedLocation";
+    var TIME_FORMAT = 'h:mm a';
 
     
     /**** Private Methods ****/
     
+    /*
+     * param: location_id
+     * sets given location_id to have CLOSING_SOON_STYLE class
+     */
     var setClosingSoonStyling = function( location_id ) {
         $( location_id ).addClass( CLOSING_SOON_STYLE );
     };
     
+    /*
+     * param: location_id
+     * sets given location_id to have OPEN_STYLE class
+     */
     var addOpenStyling = function( location_id ) {
         $( location_id ).addClass( OPEN_STYLE );
     };
     
+    /*
+     * param: location_id
+     * sets given location_id to have CLOSE_STYLE class
+     */
     var addClosedSyling = function( location_id ) {
         $( location_id ).addClass( CLOSED_STYLE );
     };
@@ -37,8 +50,8 @@ RAPP.LocationButtonStyler = ( function() {
      * object's key-value is array of time Ids for today
      */
     var getTodaysTimeIds = function() {
-        var weekDay = RAPP.TimeDataCollector.dayOfWeek();
-        var locationAndTimes = RAPP.LocationDataCollector.getLocationIdsToTimeIdsObject();
+        var weekDay = RAPP.TimeManager.dayOfWeek();
+        var locationAndTimes = RAPP.LocationManager.getLocationIdsToTimeIdsObject();
         var today= {};
 
         for ( locationId in locationAndTimes ) {
@@ -58,12 +71,12 @@ RAPP.LocationButtonStyler = ( function() {
      * object's key is location button id
      * object's key-value is an Open or Close value
      * Open and Close value are numerical time values
-     * for lcoation opening and closing times
+     * for location opening and closing times
      */
     var currentLocationTimes = function() {
         var _today = getTodaysTimeIds();
         var currentLocationTimes = {}
-        var timeIdAndValue = RAPP.LocationDataCollector.getTimeIdtoTimeValueObject();
+        var timeIdAndValue = RAPP.LocationManager.getTimeIdtoTimeValueObject_Location();
         var openTime;
         var closeTime;
         for ( loc in _today ) {
@@ -84,23 +97,27 @@ RAPP.LocationButtonStyler = ( function() {
             };
         }
         return currentLocationTimes;
-    };
-    
+    };   
     
     // TO DO: when times include minutes as well
     // we must add that to time objects
+    
+    /*
+     * Sets css styling classes to all location buttons
+     * Uses location Id's and current time data 
+     * found in currentLocationTimes() return value
+     * 
+     */ 
     var setLocationButtonStyles = function() {  
-        var currentTime = RAPP.TimeDataCollector.getMoment();
-        var openTime = RAPP.TimeDataCollector.getMoment();
-        var closeTime = RAPP.TimeDataCollector.getMoment();
+        var currentTime = RAPP.TimeManager.getMoment();
+        var openTime;
+        var closeTime;
         var locationTimesToday = currentLocationTimes();
         for ( location_id in locationTimesToday ) {
             var o_time = locationTimesToday[ location_id ].OPEN;
-            openTime.set('hour', o_time);
-            openTime.set('minute', 0);
+            openTime = makeMoment( o_time, 0 );
             var c_time = locationTimesToday[ location_id ].CLOSE;
-            closeTime.set('hour', c_time);
-            closeTime.set('minute', 0);
+            closeTime = makeMoment( c_time, 0 );
             
             if ( isClosingSoon( currentTime, openTime, closeTime )) {
                 setClosingSoonStyling( location_id );
@@ -114,6 +131,10 @@ RAPP.LocationButtonStyler = ( function() {
         }
     };
     
+    /*
+     * params: {moment()} currentTime, openTime, closeTime
+     * returns: {boolean} If location is currently open
+     */ 
     var isOpen = function( currentTime, openTime, closeTime ) {
         if ( currentTime < openTime ) {
             return false; 
@@ -126,39 +147,66 @@ RAPP.LocationButtonStyler = ( function() {
         }
     }
     
-    var isClosingSoon = function( current_time, open_time, close_time ) {
-        var thresholdTime = RAPP.TimeDataCollector.getMomentWithOffset( THRESHOLD, 'minute' );
-        if ( isOpen( current_time, open_time, close_time )) {
-            if ( thresholdTime > close_time ) {
+    /*
+     * params: {moment()} currentTime, openTime, closeTime 
+     * returns: {boolean} If location is closing within time THRESHOLD
+     */ 
+    var isClosingSoon = function( currentTime, openTime, closeTime ) {
+        var thresholdTime = RAPP.TimeManager.getMomentWithOffset( THRESHOLD, 'minute' );
+        if ( isOpen( currentTime, openTime, closeTime )) {
+            if ( thresholdTime > closeTime ) {
                 return true;
-            } else if (thresholdTime < close_time ){
+                
+            } else {
                 return false;
             }
-            else {
-                return false;
-            } 
         } else {
             return false;
         }
-    }
+    };
     
+    /*
+     * Appends today's open and close time to location button
+     * on index.html page
+     */
+    var setTodaysTimesToButton = function() {
+        var locationTimes = currentLocationTimes();
+        for ( loc_id in locationTimes ){
+            var openTime = locationTimes[ loc_id ].OPEN;
+            var closeTime = locationTimes[ loc_id ].CLOSE;
+            var openMoment = makeMoment( openTime, 0 );
+            var closeMoment = makeMoment( closeTime, 0) ;
+            var open = openMoment.format( TIME_FORMAT ); 
+            var close = closeMoment.format( TIME_FORMAT ); 
+            $( loc_id ).append('<p>' + open + ' - ' + close +'</p>');
+        }
+    };   
     
+    /*
+     * params: {int} hour, minute
+     * returns: {moment()} moment
+     *
+     * Calls on RAPP.TimeManager.makeMoment function to create
+     * custom moment
+     */
+    var makeMoment = function( hour, minute ) {
+        return RAPP.TimeManager.makeMoment( hour, minute );
+    }   
     
-    /**** Public Methods ****/
-    
+    /* 
+     * Sets time specfic styles to Location Buttons
+     * Displays current day's hours for location button
+     */ 
+    var init = function() {
+        setLocationButtonStyles();
+        setTodaysTimesToButton();
+    };
+         
+    /**** Public Methods ****/ 
     return {
         
-        getTodaysTimeIds: function() {
-            return getTodaysTimeIds();
-        },
-        
-        currentLocationTimes: function() {
-            return currentLocationTimes();
-        },
-        
-        setLocationButtonStyles: function(){
-            setLocationButtonStyles();
+        init: function() {
+            init();
         }
     }
- 
 })();
