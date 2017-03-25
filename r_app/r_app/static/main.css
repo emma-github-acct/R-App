@@ -1,10 +1,11 @@
-h4 { 
-    display: block;
-    font-size: 15px;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-    margin-left: 0;
-    margin-right: 0;
-    font-weight: bold;
+.closingSoonLocation {
+    background-color: yellow;
 }
 
+.openLocation {
+    background-color: green;
+}
+
+.closedLocation {
+    background-color: red;
+}

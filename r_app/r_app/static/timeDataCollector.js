@@ -5,13 +5,24 @@ var RAPP = RAPP || {};
 
 // Initialize
 RAPP.TimeDataCollector = ( function() {
-
     
+    var WEEK_DAYS = {
+        1: "monday",
+        2: "tuesday",
+        3: "wednesday",
+        4: "thursday",
+        5: "friday",
+        6: "saturday",
+        7: "sunday",
+    };
+  
     /**** Private Methods ****/
     
     var getCurrentWeekday = function() {
         var m = moment();
-        return m.weekday();
+        var w = m.weekday();
+        var weekDay = WEEK_DAYS[ w ];
+        return weekDay;
     };
     
     var getCurrentDate = function() {
@@ -28,6 +39,22 @@ RAPP.TimeDataCollector = ( function() {
         var m = moment();
         return m.get('minute');
     };
+    
+    var getMoment = function() {
+        return moment();
+    };
+    
+    var getMomentWithOffset = function( offsetAmount, offsetType ) {
+        var m = moment();
+        var newMoment;
+        if ( offsetAmount < 0 ){
+            newMoment = m.subtract( abs( offsetAmount ), offsetType );
+            
+        } else {
+            newMoment = m.add( offsetAmount, offsetType );
+        }
+        return newMoment;
+    }
     
     
     
@@ -49,7 +76,16 @@ RAPP.TimeDataCollector = ( function() {
         
         minute: function() {
             return getCurrentMinute();
+        },
+        
+        getMoment: function() {
+            return getMoment();
+        },
+        
+        getMomentWithOffset: function( offsetAmount, offsetType ) {
+            return getMomentWithOffset( offsetAmount, offsetType );
         }
+        
     }
  
 })();
