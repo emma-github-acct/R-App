@@ -12,66 +12,67 @@
    <button class="contact_phone_number">{{ contact.phone_number|capfirst }}</button>
 {% endfor %}
 <!--Contact info here but not database or model info in on this yet-->
-
+<div id="RegularHours">
 <h4>Regular Hours:</h4>
 <ul>
-    <li> Monday:
-        <span id={{ location.location_title | cut:" " | add:"-mondayOpen" }}>
+    <li id="monday"> Monday:
+        <span id="mondayOpen">
             {{ location.monday_open }}
         </span> -
-        <span id={{ location.location_title | cut:" " | add:"-mondayClose" }}>
+        <span id="mondayClose">
             {{ location.monday_close }}
         </span>
     </li>
-    <li> Tuesday:
-        <span id={{ location.location_title | cut:" " | add:"-tuesdayOpen" }}>
+    <li id="tuesday"> Tuesday:
+        <span id="tuesdayOpen">
             {{ location.tuesday_open }}
         </span> -
-        <span id={{ location.location_title | cut:" " | add:"-tuesdayClose" }}>
+        <span id="tuesdayClose">
             {{ location.tuesday_close }}
         </span>
     </li>
-    <li> Wednesday:
-        <span id={{ location.location_title | cut:" " | add:"-wednesdayOpen" }}>
+    <li id="wednesday"> Wednesday:
+        <span id="wednesdayOpen">
             {{ location.wednesday_open }}
         </span> -
-        <span id={{ location.location_title | cut:" " | add:"-wednesdayClose" }}>
+        <span id="wednesdayClose">
             {{ location.wednesday_close }}
         </span>
     </li>
-    <li> Thrusday:
-        <span id={{ location.location_title | cut:" " | add:"-thursdayOpen" }}>
+    <li id="thursday"> Thrusday:
+        <span id="thursdayOpen">
             {{ location.thursday_open }}
         </span> -
-        <span id={{ location.location_title | cut:" " | add:"-thursdayClose" }}>
+        <span id="thursdayClose">
             {{ location.thursday_close }}
         </span>
     </li>
-    <li> Friday:
-        <span id={{ location.location_title | cut:" " | add:"-fridayOpen" }}>
+    <li id="friday"> Friday:
+        <span id="fridayOpen">
             {{ location.friday_open }}
         </span> -
-        <span id={{ location.location_title | cut:" " | add:"-fridayClose" }}>
+        <span id="fridayClose">
             {{ location.friday_close }}
         </span>
     </li>
-    <li> Saturday:
-        <span id={{ location.location_title | cut:" " | add:"-saturdayOpen" }}>
+    <li id="saturday"> Saturday:
+        <span id="saturdayOpen">
             {{ location.saturday_open }}
         </span> -
-        <span id={{ location.location_title | cut:" " | add:"-saturdayClose" }}>
+        <span id="saturdayClose">
             {{ location.saturday_close }}
         </span>
     </li>
-    <li> Sunday:
-        <span id={{ location.location_title | cut:" " | add:"-sundayOpen" }}>
+    <li id="sunday"> Sunday:
+        <span id="sundayOpen">
             {{ location.sunday_open }}
         </span> -
-        <span id={{ location.location_title | cut:" " | add:"-sundayClose" }}>
+        <span id="sundayClose">
             {{ location.sunday_close }}
         </span>
     </li>
 </ul>
+    </div>
 
 
 <h4>Calendar Changes:</h4>

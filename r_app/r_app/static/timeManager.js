@@ -4,7 +4,7 @@ this.name = "TimeDataCollector";
 var RAPP = RAPP || {};
 
 // Initialize
-RAPP.TimeDataCollector = ( function() {
+RAPP.TimeManager = ( function() {
     
     var WEEK_DAYS = {
         1: "monday",
@@ -54,10 +54,16 @@ RAPP.TimeDataCollector = ( function() {
             newMoment = m.add( offsetAmount, offsetType );
         }
         return newMoment;
-    }
+    };
     
+    var makeMoment = function( hour, minute ) {
+        var m = moment();
+        m.set( 'hour', hour );
+        m.set( 'minute', minute );
+        return m;
+    };
     
-    
+      
     /**** Public Methods ****/
     
     return {
@@ -84,7 +90,12 @@ RAPP.TimeDataCollector = ( function() {
         
         getMomentWithOffset: function( offsetAmount, offsetType ) {
             return getMomentWithOffset( offsetAmount, offsetType );
-        }
+        },
+        
+        makeMoment: function( hour, minute ) {
+            return makeMoment( hour, minute );
+        },
+        
         
     }
  
