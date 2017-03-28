@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import Location
 from .models import Contact
-from .models import NormalHours
 from .models import ExceptionsCalendar
 from .models import EventsCalendar
 
@@ -12,9 +11,6 @@ class LocationAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
 	list_display = ['location_title', 'desk_name', 'contact_name', 'phone_number', 'fax_number']
 
-class NormalHoursAdmin(admin.ModelAdmin):
-	list_display = ['location_title', 'day_id', 'opening_time', 'closing_time']
-
 class ExceptionsCalendarAdmin(admin.ModelAdmin):
 	list_display = ['location_title', 'event_title', 'date', 'opening_time', 'closing_time']
 
@@ -23,6 +19,5 @@ class EventsCalendarAdmin(admin.ModelAdmin):
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Contact, ContactAdmin)
-admin.site.register(NormalHours, NormalHoursAdmin)
 admin.site.register(ExceptionsCalendar, ExceptionsCalendarAdmin)
 admin.site.register(EventsCalendar, EventsCalendarAdmin)

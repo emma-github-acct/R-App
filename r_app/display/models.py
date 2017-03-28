@@ -54,25 +54,6 @@ class ExceptionsCalendar(models.Model):
         return self.closing_time
 
 
-class NormalHours(models.Model):
-    #location_title', 'day_id', 'opening_time', 'closing_time'
-    location_title = models.ForeignKey(
-        "Location",
-        on_delete=models.CASCADE
-    )
-    day_id = models.IntegerField(default = 0)
-    opening_time = models.IntegerField(default = 9)
-    closing_time = models.IntegerField(default = 5)
-
-    def __unicode__(self):
-        return self.location_title
-
-    def __unicode__(self):
-        return self.opening_time
-
-    def _unicode_(self):
-        return self.closing_time
-
 class Contact(models.Model):
     desk_name = models.CharField(max_length=40)
     location_title = models.ForeignKey(
