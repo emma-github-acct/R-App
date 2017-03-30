@@ -94,9 +94,7 @@ RAPP.TimeManager = ( function() {
         
         makeMoment: function( hour, minute ) {
             return makeMoment( hour, minute );
-        },
-        
-        
+        },  
     }
  
 })();

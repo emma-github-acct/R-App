@@ -6,11 +6,12 @@
 <div id="locationButtons">
 
        {% for location in locations %}
-        <button id={{ location.location_title | cut:" " }}>
+        <button id={{ location.location_title | cut:" " }} class="btn btn-primary">
             <a href="{% url 'location_detail' location.id %}">
                   {{ location.location_title|capfirst }}
             </a>
         </button>
+    <br>
     
     <div class="locationRegularHours" style="display:none">
         <ul>

@@ -34,16 +34,7 @@ class ExceptionsCalendar(models.Model):
     closing_time = models.IntegerField(default = 5)
 
     def __unicode__(self):
-        return self.location_title
-
-    def __unicode__(self):
         return self.date
-
-    def __unicode__(self):
-        return self.opening_time
-
-    def _unicode_(self):
-        return self.closing_time
 
 
 class Contact(models.Model):

@@ -7,10 +7,10 @@ var RAPP = RAPP || {};
 RAPP.LocationButtonStyler = ( function() {
     var OPEN = "Open";
     var CLOSE = "Close";
-    var THRESHOLD = 30;
-    var CLOSING_SOON_STYLE = "closingSoonLocation";
-    var OPEN_STYLE = "openLocation";
-    var CLOSED_STYLE = "closedLocation";
+    var THRESHOLD = 60;
+    var CLOSING_SOON_STYLE = "btn-warning";
+    var OPEN_STYLE = "btn-success";
+    var CLOSED_STYLE = "btn-danger";
     var TIME_FORMAT = 'h:mm a';
 
     
