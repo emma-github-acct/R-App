@@ -1,6 +1,21 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+class CalendarException(models.Model):
+    title = models.CharField(max_length=20)
+    location_title = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE
+    )
+    event_title = models.ForeignKey(
+        "EventsCalendar",
+        on_delete=models.CASCADE,
+        null=True
+    )
+    date = models.DateField()
+    opening_time = models.TimeField()
+    closing_time = models.TimeField()
+    
 class EventsCalendar(models.Model):
     #'location_title', 'event_title', 'room_id','date', 'opening_time', 'closing_time', 'event_information'
     location_title = models.ForeignKey(
@@ -10,32 +25,22 @@ class EventsCalendar(models.Model):
     event_title = models.CharField(max_length=50)
     event_information = models.CharField(max_length=1000)
     date = models.DateField()
-    opening_time = models.IntegerField(default = 9)
-    closing_time = models.IntegerField(default = 5)
+    opening_time = models.TimeField()
+    closing_time = models.TimeField()
     room_id = models.IntegerField(default = 0)
 
     def __unicode__(self):
-        return self.date
-
-
-class ExceptionsCalendar(models.Model):
-    #'location_title', 'event_title', date', 'opening_time', 'closing_time'
-    location_title = models.ForeignKey(
-        "Location",
-        on_delete=models.CASCADE
-    )
-    event_title = models.ForeignKey(
-        "EventsCalendar",
-        on_delete=models.CASCADE
-    )
-    #We need to define these tables more clearly
-    date = models.DateField()
-    opening_time = models.IntegerField(default = 9)
-    closing_time = models.IntegerField(default = 5)
+        return self.location_title
 
     def __unicode__(self):
         return self.date
 
+    def __unicode__(self):
+        return self.opening_time
+
+    def _unicode_(self):
+        return self.closing_time
+    
 
 class Contact(models.Model):
     desk_name = models.CharField(max_length=40)
@@ -44,7 +49,6 @@ class Contact(models.Model):
         on_delete=models.CASCADE
     )
     contact_name = models.CharField(max_length=30)
-    #phone_number = models.IntegerField(default=0)
     phone_number=PhoneNumberField()
     fax_number=PhoneNumberField(blank=True)
 
@@ -111,67 +115,23 @@ class Location(models.Model):
     # Location - Fields
     location_title = models.CharField(max_length=20)
     map_id = models.IntegerField(default=0, unique=True)
-    monday_open = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    monday_close = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24
-    )
-    tuesday_open = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24
-    )
-    tuesday_close = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    wednesday_open = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    wednesday_close = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    thursday_open = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    thursday_close = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    friday_open = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    friday_close = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    saturday_open = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    saturday_close = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    sunday_open = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
-    sunday_close = models.IntegerField(
-        choices=HOUR_CHOICES,
-        default=24,
-    )
+    monday_open = models.TimeField()
+    monday_close = models.TimeField()
+    tuesday_open = models.TimeField()
+    tuesday_close = models.TimeField()
+    wednesday_open = models.TimeField()
+    wednesday_close = models.TimeField()
+    thursday_open = models.TimeField()
+    thursday_close = models.TimeField()
+    friday_open = models.TimeField()
+    friday_close = models.TimeField()
+    saturday_open = models.TimeField()
+    saturday_close = models.TimeField()
+    sunday_open = models.TimeField()
+    sunday_close = models.TimeField()
     
     def __unicode__(self):
         return self.location_title
     
     def __str__(self):
         return self.location_title
-    
-    
