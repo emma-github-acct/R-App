@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import Location
 from .models import Contact
-from .models import ExceptionsCalendar
+from .models import CalendarException
 from .models import EventsCalendar
 
 class LocationAdmin(admin.ModelAdmin):
@@ -11,13 +11,13 @@ class LocationAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
 	list_display = ['location_title', 'desk_name', 'contact_name', 'phone_number', 'fax_number']
 
-class ExceptionsCalendarAdmin(admin.ModelAdmin):
-	list_display = ['location_title', 'event_title', 'date', 'opening_time', 'closing_time']
-
 class EventsCalendarAdmin(admin.ModelAdmin):
 	list_display = ['location_title', 'event_title', 'room_id','date', 'opening_time', 'closing_time', 'event_information']
+    
+class CalendarExceptionAdmin(admin.ModelAdmin):
+    list_display = ['title', 'location_title', 'date', 'opening_time', 'closing_time']
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Contact, ContactAdmin)
-admin.site.register(ExceptionsCalendar, ExceptionsCalendarAdmin)
 admin.site.register(EventsCalendar, EventsCalendarAdmin)
+admin.site.register(CalendarException, CalendarExceptionAdmin)

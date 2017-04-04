@@ -77,23 +77,23 @@ RAPP.LocationButtonStyler = ( function() {
         var _today = getTodaysTimeIds();
         var currentLocationTimes = {}
         var timeIdAndValue = RAPP.LocationManager.getTimeIdtoTimeValueObject_Location();
-        var openTime;
-        var closeTime;
+        var openTimeArray;
+        var closeTimeArray;
         for ( loc in _today ) {
             currentTimeArray = _today[loc];
             for ( var j = 0; j < currentTimeArray.length; j++ ) {
                 if ( currentTimeArray[ j ].includes( OPEN )){
                     openId = currentTimeArray[ j ];
-                    openTime = timeIdAndValue[ openId ];
+                    openTimeArray = timeIdAndValue[ openId ];
                 }
                 if ( currentTimeArray[ j ].includes( CLOSE )){
                     closeId = currentTimeArray[ j ];
-                    closeTime = timeIdAndValue[ closeId ];
+                    closeTimeArray = timeIdAndValue[ closeId ];
                 }
             }
             currentLocationTimes[ loc ] = {
-                OPEN: openTime,
-                CLOSE: closeTime
+                OPEN: openTimeArray,
+                CLOSE: closeTimeArray
             };
         }
         return currentLocationTimes;
@@ -115,9 +115,9 @@ RAPP.LocationButtonStyler = ( function() {
         var locationTimesToday = currentLocationTimes();
         for ( location_id in locationTimesToday ) {
             var o_time = locationTimesToday[ location_id ].OPEN;
-            openTime = makeMoment( o_time, 0 );
+            openTime = makeMoment( o_time[1], o_time[1] );
             var c_time = locationTimesToday[ location_id ].CLOSE;
-            closeTime = makeMoment( c_time, 0 );
+            closeTime = makeMoment( c_time[0], c_time[1] );
             
             if ( isClosingSoon( currentTime, openTime, closeTime )) {
                 setClosingSoonStyling( location_id );
@@ -174,8 +174,8 @@ RAPP.LocationButtonStyler = ( function() {
         for ( loc_id in locationTimes ){
             var openTime = locationTimes[ loc_id ].OPEN;
             var closeTime = locationTimes[ loc_id ].CLOSE;
-            var openMoment = makeMoment( openTime, 0 );
-            var closeMoment = makeMoment( closeTime, 0) ;
+            var openMoment = makeMoment( openTime[0], openTime[1] );
+            var closeMoment = makeMoment( closeTime[0], closeTime[1]) ;
             var open = openMoment.format( TIME_FORMAT ); 
             var close = closeMoment.format( TIME_FORMAT ); 
             $( loc_id ).append('<p>' + open + ' - ' + close +'</p>');
