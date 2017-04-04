@@ -3,7 +3,6 @@
 var initialize = function() {
 
     RAPP.LocationButtonStyler.init();
-    RAPP.LocationDetailedStyler.init();
 
 }
 

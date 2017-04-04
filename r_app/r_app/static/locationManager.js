@@ -56,9 +56,14 @@ RAPP.LocationManager = ( function() {
             var timeIdArray = locationToTimeObject[ location_id ];
             for ( var i = 0; i < timeIdArray.length; i++ ){
                 var time_id = timeIdArray[ i ];
-                var time_val_html = $( time_id ).html();
-                var time_value = Number( time_val_html );
-                timeIdtoTimeValueObject[ time_id ] = time_value;
+                var time_val = $( time_id ).text();
+                var time_array = time_val.split(":");
+                for (var j = 0; j < time_array.length; j++ ){
+                    var number_string = time_array[j];
+                    var num = Number( number_string );
+                    time_array[j] = num;
+                }
+                timeIdtoTimeValueObject[ time_id ] = time_array;
             }
         }
         return timeIdtoTimeValueObject;
