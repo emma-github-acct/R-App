@@ -1,81 +1,115 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ location.location_title|capfirst }}</h1> 
+            <a class="backToHome" href="{% url 'index' %}">Back to Home</a>
+        </div>
 
-<h1>{{ location.location_title|capfirst }}</h1>
-<a href="{% url 'index' %}">Back to Home</a>
+        <h4 class="locationSection">{{ location.location_title|capfirst }} Contact Info:</h4>
 
-<h4>{{ location.location_title|capfirst }} Contact Info:</h4>
-{% for contact in contacts %}
-   <button class="contact_desk_name">{{ contact.desk_name|capfirst }}</button>
-   <button class="contact_name">{{ contact.contact_name|capfirst }}</button>
-   <button class="contact_phone_number">{{ contact.phone_number|capfirst }}</button>
-{% endfor %}
-<!--Contact info here but not database or model info in on this yet-->
-<div id="RegularHours">
-<h4>Regular Hours:</h4>
-<ul>
-    <li id="monday"> Monday:
-        <span id="mondayOpen">
-            {{ location.monday_open }}
-        </span> -
-        <span id="mondayClose">
-            {{ location.monday_close }}
-        </span>
-    </li>
-    <li id="tuesday"> Tuesday:
-        <span id="tuesdayOpen">
-            {{ location.tuesday_open }}
-        </span> -
-        <span id="tuesdayClose">
-            {{ location.tuesday_close }}
-        </span>
-    </li>
-    <li id="wednesday"> Wednesday:
-        <span id="wednesdayOpen">
-            {{ location.wednesday_open }}
-        </span> -
-        <span id="wednesdayClose">
-            {{ location.wednesday_close }}
-        </span>
-    </li>
-    <li id="thursday"> Thrusday:
-        <span id="thursdayOpen">
-            {{ location.thursday_open }}
-        </span> -
-        <span id="thursdayClose">
-            {{ location.thursday_close }}
-        </span>
-    </li>
-    <li id="friday"> Friday:
-        <span id="fridayOpen">
-            {{ location.friday_open }}
-        </span> -
-        <span id="fridayClose">
-            {{ location.friday_close }}
-        </span>
-    </li>
-    <li id="saturday"> Saturday:
-        <span id="saturdayOpen">
-            {{ location.saturday_open }}
-        </span> -
-        <span id="saturdayClose">
-            {{ location.saturday_close }}
-        </span>
-    </li>
-    <li id="sunday"> Sunday:
-        <span id="sundayOpen">
-            {{ location.sunday_open }}
-        </span> -
-        <span id="sundayClose">
-            {{ location.sunday_close }}
-        </span>
-    </li>
-</ul>
-    </div>
+        {% for contact in contacts %}
+            <p class="contact_desk_name">{{ contact.desk_name|capfirst }}</p>
+            <p class="contact_name">{{ contact.contact_name|capfirst }}</p>
+            <p class="contact_phone_number">{{ contact.phone_number|capfirst }}</p>
+        {% endfor %}
+        
+        <h4 class="locationSection">Regular Hours:</h4>
+        
+        <div id="regularHours" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div id="titleRow" class="row">
+                <div id="titleDay" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Day
+                </div>
+                <div id="titleOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Open
+                </div>
+                <div id="titleClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Close
+                </div>
+            </div>
+            <div class="row">
+                <div id="monday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Monday:
+                </div>
+                <div id="mondayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.monday_open }}
+                </div>
+                <div id="mondayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.monday_close }}
+                </div>
+            </div>
+            <div class="grey_row row">
+                <div id="tuesday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Tuesday:
+                </div>
+                <div id="tuesdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.tuesday_open }}
+                </div>
+                <div id="tuesdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.tuesday_close }}
+                </div>
+            </div>
+            <div class="row">
+                <div id="wednesday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Wednesday:
+                </div>
+                <div id="wednesdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.wednesday_open }}
+                </div>
+                <div id="wednesdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.wednesday_close }}
+                </div>
+            </div>
+            <div class="grey_row row">
+                <div id="thursday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Thursday:
+                </div>
+                <div id="thursdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.thursday_open }}
+                </div>
+                <div id="thursdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.thursday_close }}
+                </div>
+            </div>
+            <div class="row">
+                <div id="friday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Friday:
+                </div>
+                <div id="fridayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.friday_open }}
+                </div>
+                <div id="fridayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.friday_close }}
+                </div>
+            </div>
+            <div class="grey_row row">
+                <div id="saturday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Saturday:
+                </div>
+                <div id="saturdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.saturday_open }}
+                </div>
+                <div id="saturdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.saturday_close }}
+                </div>
+            </div>
+            <div class="row">
+                <div id="sunday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Sunday:
+                </div>
+                <div id="sundayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.sunday_open }}
+                </div>
+                <div id="sundayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ location.sunday_close }}
+                </div>
+            </div>
+        </div>
+        
+        <h4 class="locationSection">Calendar Exceptions:</h4>
 
-
-<h4>Calendar Changes:</h4>
-<!--Exceptions Calendar here-->
+</div>
 
 {% endblock %}

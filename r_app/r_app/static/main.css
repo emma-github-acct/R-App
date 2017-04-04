@@ -1,11 +1,48 @@
-.closingSoonLocation {
-    background-color: yellow;
+
+/* Header */
+
+.jumbotron {
+    background-color: #4259f4 !important;
+    font: yellow;
 }
 
-.openLocation {
-    background-color: green;
+h1 {
+    color: yellow !important;
 }
 
-.closedLocation {
-    background-color: red;
+/* Location Button Page */
+
+.location_button {
+    height: inherit;
+    width: inherit;
+    margin-top: 15px;
+}
+
+#locationButtons {
+    padding-left: 20%;
+    padding-right: 20%;    
+}
+
+/* Location Detail Page */
+
+.backToHome {
+    text-decoration: underline;
+    color: yellow;
+}
+
+#titleRow {
+    border-color: #4259f4;
+    color: #4259f4;
+    font-size: 20px;
+    border: solid;
+}
+
+.grey_row.row {
+    background-color: lightgrey;
+}
+
+.locationSection {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    clear:both;
 }

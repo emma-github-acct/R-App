@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-   <h1>Welcome to R-App</h1>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Welcome to R-App</h1> 
+            <p>For all Rollins Info</p>
+        </div>
 
-<div id="locationButtons">
-
+    <div id="locationButtons" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
        {% for location in locations %}
-        <button id={{ location.location_title | cut:" " }} class="btn btn-primary"
+        <button id={{ location.location_title | cut:" " }} class="location_button btn btn-primary"
                 onClick="location.href='{% url 'location_detail' location.id %}'">
             {{ location.location_title }}
         </button>
@@ -75,6 +78,7 @@
 
        {% endfor %}
     
+    </div>
 </div>
 
 {% endblock %}
