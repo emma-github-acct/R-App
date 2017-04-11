@@ -7,10 +7,12 @@ var RAPP = RAPP || {};
 RAPP.LocationButtonStyler = ( function() {
     var OPEN = "Open";
     var CLOSE = "Close";
-    var THRESHOLD = 60;
+    var OPEN_24_HOUR = "-open24Hour";
+    var THRESHOLD = 30;
     var CLOSING_SOON_STYLE = "btn-warning";
     var OPEN_STYLE = "btn-success";
     var CLOSED_STYLE = "btn-danger";
+    var STUDENT_24HOUR_STYLE = "btn-primary";
     var TIME_FORMAT = 'h:mm a';
 
     
@@ -31,6 +33,15 @@ RAPP.LocationButtonStyler = ( function() {
     var addOpenStyling = function( location_id ) {
         $( location_id ).addClass( OPEN_STYLE );
     };
+    
+    /*
+     * param: location_id
+     * sets given location_id to have STUDENT_24HOUR_STYLE class
+     */
+    var addOpen24HoursForStudentsStyling = function( location_id ) {
+        $( location_id ).addClass( STUDENT_24HOUR_STYLE );
+    };
+    
     
     /*
      * param: location_id
@@ -109,13 +120,14 @@ RAPP.LocationButtonStyler = ( function() {
      * 
      */ 
     var setLocationButtonStyles = function() {  
+        var locAlwaysOpenToStudents = RAPP.LocationManager.getLocationsAlwaysOpenToStudents();
         var currentTime = RAPP.TimeManager.getMoment();
         var openTime;
         var closeTime;
         var locationTimesToday = currentLocationTimes();
         for ( location_id in locationTimesToday ) {
             var o_time = locationTimesToday[ location_id ].OPEN;
-            openTime = makeMoment( o_time[1], o_time[1] );
+            openTime = makeMoment( o_time[0], o_time[1] );
             var c_time = locationTimesToday[ location_id ].CLOSE;
             closeTime = makeMoment( c_time[0], c_time[1] );
             
@@ -125,6 +137,9 @@ RAPP.LocationButtonStyler = ( function() {
             } else if ( isOpen( currentTime, openTime, closeTime )) {
                 addOpenStyling( location_id );
             
+            } else if ( isOpen24HoursForStudentsOnly( location_id, locAlwaysOpenToStudents )) {
+                addOpen24HoursForStudentsStyling( location_id );
+                
             } else {
                 addClosedSyling( location_id );
             }
@@ -163,6 +178,16 @@ RAPP.LocationButtonStyler = ( function() {
         } else {
             return false;
         }
+    };
+    
+    /*
+     * params: location_id , locAlwaysOpenToStudents- array of locations open 24 hours for students
+     * returns: {boolean} If location is open 24 Hours a day to students
+     */ 
+    var isOpen24HoursForStudentsOnly = function( location_id, locAlwaysOpenToStudents ) {
+        var locId = location_id + OPEN_24_HOUR;
+        var found = $.inArray( locId, locAlwaysOpenToStudents ) > -1;
+        return found;
     };
     
     /*

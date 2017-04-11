@@ -16,6 +16,11 @@
     <br>
     
     <div class="locationRegularHours" style="display:none">
+        
+        <span id={{ location.location_title | cut:" " | add:"-open24Hour" }}>
+                {{ location.open_24_hours_for_students}}
+        </span>
+        
         <ul>
             <li> Monday:
                 <span id={{ location.location_title | cut:" " | add:"-mondayOpen" }}>
