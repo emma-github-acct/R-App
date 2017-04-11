@@ -11,6 +11,7 @@ RAPP.LocationManager = ( function() {
     var LOCATION_IDS = "button";
     var TIME_IDS = "span";
     var WEEKDAY_IDS = "li";
+    var OPEN_24_HOUR = "open24Hour";
     var REG_TIME_DIV = "#RegularHours"; 
     
     /**** Private Methods ****/
@@ -25,6 +26,21 @@ RAPP.LocationManager = ( function() {
         _ids.push( "#"+ this.id ); 
         });
         return _ids;
+    }
+    
+    var locationsOpen24Hours = function () {
+        var alwaysOpenIds = collectIds( LOCATION_TIME_DIV, TIME_IDS );
+        var locationsOpen24Hours = [];
+        for ( var i = 0; i < alwaysOpenIds.length; i++ ) {
+            if ( alwaysOpenIds[i].includes( OPEN_24_HOUR )){
+                var locId = alwaysOpenIds[i];
+                var isLocationAlwaysOpen = $( locId ).html();
+                if ( isLocationAlwaysOpen.includes("True") ){
+                    locationsOpen24Hours.push( locId );
+                }
+            }
+        }
+        return locationsOpen24Hours;
     }
     
     var addTimeToContainer = function( locationId, timeId , object ) {
@@ -96,12 +112,16 @@ RAPP.LocationManager = ( function() {
             return createIdToTimeIdsObject( weekdayIds, timeIds );
         }, 
         
-        getTimeIdtoTimeValueObject_Weekday: function( ) {
+        getTimeIdtoTimeValueObject_Weekday: function() {
             var weekdayIds = collectIds( REG_TIME_DIV, WEEKDAY_IDS );
             var timeIds = collectIds( REG_TIME_DIV, TIME_IDS );
             var weekdayToTimeObject = createIdToTimeIdsObject( weekdayIds, timeIds );
             return createTimeIdtoTimeValueObject( weekdayToTimeObject );
         },
+        
+        getLocationsAlwaysOpenToStudents: function() {
+            return locationsOpen24Hours();
+        }
 
     }
  
