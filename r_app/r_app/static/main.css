@@ -34,7 +34,7 @@ h1 {
     color: yellow;
 }
 
-#titleRow {
+.titleRow {
     border-color: #4259f4;
     color: #4259f4;
     font-size: 20px;
