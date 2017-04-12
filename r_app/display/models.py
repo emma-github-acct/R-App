@@ -2,7 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 class CalendarException(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=30)
     location_title = models.ForeignKey(
         "Location",
         on_delete=models.CASCADE
@@ -28,20 +28,14 @@ class EventsCalendar(models.Model):
     opening_time = models.TimeField()
     closing_time = models.TimeField()
     room_id = models.IntegerField(default = 0)
-
-    def __unicode__(self):
-        return self.location_title
-
-    def __unicode__(self):
-        return self.date
-
-    def __unicode__(self):
-        return self.opening_time
-
-    def _unicode_(self):
-        return self.closing_time
     
-
+    def __unicode__(self):
+        return self.event_title
+    
+    def __str__(self):
+        return self.event_title
+    
+    
 class Contact(models.Model):
     desk_name = models.CharField(max_length=40)
     location_title = models.ForeignKey(
