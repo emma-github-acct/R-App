@@ -6,8 +6,17 @@
             <h1>Welcome to R-App</h1> 
             <p>For all Rollins Info</p>
         </div>
+        
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <h4>Key:</h4>
+            <div class="row"><button class="key_button btn btn-success">Open</button></div>
+            <div class="row"><button class="key_button btn btn-warning">Closing Soon</button></div>
+            <div class="row"><button class="key_button btn btn-danger">Closed</button></div>
+            <div class="row"><button class="key_button btn btn-primary">Open to Rollins</button></div>
+        </div>
+        
 
-    <div id="locationButtons" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="locationButtons" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
        {% for location in locations %}
         <button id={{ location.location_title | cut:" " }} class="location_button btn btn-primary"
                 onClick="location.href='{% url 'location_detail' location.id %}'">
@@ -16,6 +25,11 @@
     <br>
     
     <div class="locationRegularHours" style="display:none">
+        
+        <span id={{ location.location_title | cut:" " | add:"-open24Hour" }}>
+                {{ location.open_24_hours_for_students}}
+        </span>
+        
         <ul>
             <li> Monday:
                 <span id={{ location.location_title | cut:" " | add:"-mondayOpen" }}>

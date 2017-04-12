@@ -15,17 +15,21 @@
             <p class="contact_phone_number">{{ contact.phone_number|capfirst }}</p>
         {% endfor %}
         
+        {% if location.open_24_hours_for_students %}
+            <h4 class="locationSection"> Open 24 Hours to Rollins Students</h4>
+        {% endif %}
+        
         <h4 class="locationSection">Regular Hours:</h4>
         
         <div id="regularHours" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div id="titleRow" class="row">
-                <div id="titleDay" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="titleRow row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     Day
                 </div>
-                <div id="titleOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     Open
                 </div>
-                <div id="titleClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     Close
                 </div>
             </div>
@@ -108,7 +112,74 @@
             </div>
         </div>
         
+        <!-- Calendar Exceptions -->
         <h4 class="locationSection">Calendar Exceptions:</h4>
+        
+        <div id="calendarExceptions" class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="titleRow row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Title
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Event
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    Location
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Date
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Times
+                </div>
+            </div>
+
+        {% for excep in exceptions %}
+            
+            {% if forloop.counter0|divisibleby:2 %}
+    
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ excep.title}}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.event_title }}
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ excep.location_title }}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.date }}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.opening_time }} - {{ excep.closing_time }}
+                </div>
+            </div>
+            
+            {% elif forloop.counter|divisibleby:2 %}
+            
+            <div class="grey_row row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ excep.title}}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.event_title }}
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ excep.location_title }}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.date }}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.opening_time }} - {{ excep.closing_time }}
+                </div>
+            </div>
+            
+            {% endif %}
+        
+         {% endfor %}
+        </div>
 
 </div>
 

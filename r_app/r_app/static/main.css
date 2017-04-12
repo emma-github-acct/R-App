@@ -19,8 +19,12 @@ h1 {
 }
 
 #locationButtons {
-    padding-left: 20%;
-    padding-right: 20%;    
+    padding-left: 10%;
+    padding-right: 10%;    
+}
+
+.key_button {
+    width: 100%;
 }
 
 /* Location Detail Page */
@@ -30,7 +34,7 @@ h1 {
     color: yellow;
 }
 
-#titleRow {
+.titleRow {
     border-color: #4259f4;
     color: #4259f4;
     font-size: 20px;
