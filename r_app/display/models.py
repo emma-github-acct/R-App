@@ -1,5 +1,4 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 
 class CalendarException(models.Model):
     title = models.CharField(max_length=30)
@@ -43,8 +42,7 @@ class Contact(models.Model):
         on_delete=models.CASCADE
     )
     contact_name = models.CharField(max_length=30)
-    phone_number=PhoneNumberField()
-    fax_number=PhoneNumberField(blank=True)
+    phone_number=models.CharField(max_length=10, help_text='Only input numbers, No Dash Marks')
 
     def __unicode__(self):
         return self.desk_name

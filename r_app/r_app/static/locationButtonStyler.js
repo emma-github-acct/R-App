@@ -203,7 +203,13 @@ RAPP.LocationButtonStyler = ( function() {
             var closeMoment = makeMoment( closeTime[0], closeTime[1]) ;
             var open = openMoment.format( TIME_FORMAT ); 
             var close = closeMoment.format( TIME_FORMAT ); 
-            $( loc_id ).append('<p>' + open + ' - ' + close +'</p>');
+            // When open and close are the same, it means the location is closed for the day
+            if ( open === close ) {
+                $( loc_id ).append('<p>Closed All Day</p>');
+            }
+            else {
+                $( loc_id ).append('<p>' + open + ' - ' + close +'</p>');
+            }
         }
     };   
     

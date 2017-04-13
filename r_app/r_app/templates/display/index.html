@@ -20,7 +20,7 @@
        {% for location in locations %}
         <button id={{ location.location_title | cut:" " }} class="location_button btn btn-primary"
                 onClick="location.href='{% url 'location_detail' location.id %}'">
-            {{ location.location_title }}
+            <h4>{{ location.location_title }}</h4>
         </button>
     <br>
     

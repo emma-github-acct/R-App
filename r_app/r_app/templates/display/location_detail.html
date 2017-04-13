@@ -7,18 +7,66 @@
             <a class="backToHome" href="{% url 'index' %}">Back to Home</a>
         </div>
 
+        
+         <!-- ***** Contact Info ***** -->
+        {% if contacts|length > 0 %}
         <h4 class="locationSection">{{ location.location_title|capfirst }} Contact Info:</h4>
+        
+        <div id="contactInfo" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="titleRow row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Desk Name
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Contact Name
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Phone Number
+                </div>
+            </div>
+            
+            {% for contact in contacts %}
+            
+            {% if forloop.counter0|divisibleby:2 %}  
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{ contact.desk_name|capfirst }}
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{ contact.contact_name|capfirst }}
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{ contact.phone_number|capfirst }}
+                </div>
+            </div>
+            
+            {% elif forloop.counter1|divisibleby:2 %}  
+            <div class="grey_row row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{ contact.desk_name|capfirst }}
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{ contact.contact_name|capfirst }}
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{ contact.phone_number|capfirst }}
+                </div>
+            </div> 
+            {% endif %}
+            
+            {% endfor %}
+        </div>
 
-        {% for contact in contacts %}
-            <p class="contact_desk_name">{{ contact.desk_name|capfirst }}</p>
-            <p class="contact_name">{{ contact.contact_name|capfirst }}</p>
-            <p class="contact_phone_number">{{ contact.phone_number|capfirst }}</p>
-        {% endfor %}
         
         {% if location.open_24_hours_for_students %}
             <h4 class="locationSection"> Open 24 Hours to Rollins Students</h4>
         {% endif %}
         
+        {% endif %}
+        
+        
+        
+         <!-- ***** Regular Hours ***** -->
         <h4 class="locationSection">Regular Hours:</h4>
         
         <div id="regularHours" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -112,7 +160,8 @@
             </div>
         </div>
         
-        <!-- Calendar Exceptions -->
+        <!-- ***** Calendar Exceptions ***** -->
+        {% if exceptions|length > 0 %}
         <h4 class="locationSection">Calendar Exceptions:</h4>
         
         <div id="calendarExceptions" class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
@@ -180,6 +229,8 @@
         
          {% endfor %}
         </div>
+        
+        {% endif %}
 
 </div>
 
