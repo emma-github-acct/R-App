@@ -1,6 +1,9 @@
 
 /* Header */
 
+.container {
+    margin-bottom: 50px;
+}
 .jumbotron {
     background-color: #4259f4 !important;
     font: yellow;
@@ -45,8 +48,12 @@ h1 {
     background-color: lightgrey;
 }
 
-.locationSection {
+.locationTableTitle {
     padding-top: 10px;
     padding-bottom: 5px;
     clear:both;
+}
+
+.locationTable {
+    margin-right: 20px;
 }

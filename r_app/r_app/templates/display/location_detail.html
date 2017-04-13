@@ -11,7 +11,7 @@
          <!-- ***** Contact Info ***** -->
         {% if contacts|length > 0 %}
         <h4 class="locationSection">{{ location.location_title|capfirst }} Contact Info:</h4>
-        
+        <div class="locationTableTitle">
         <div id="contactInfo" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="titleRow row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -56,19 +56,19 @@
             
             {% endfor %}
         </div>
+        </div>
+        
+        
 
         
         {% if location.open_24_hours_for_students %}
-            <h4 class="locationSection"> Open 24 Hours to Rollins Students</h4>
+            <h4 class="locationTableTitle"> Open 24 Hours to Rollins Students</h4>
         {% endif %}
-        
         {% endif %}
-        
-        
         
          <!-- ***** Regular Hours ***** -->
-        <h4 class="locationSection">Regular Hours:</h4>
-        
+        <h4 class="locationTableTitle">Regular Hours:</h4>
+        <div class="locationTable">
         <div id="regularHours" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="titleRow row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -159,11 +159,12 @@
                 </div>
             </div>
         </div>
+        </div>
         
         <!-- ***** Calendar Exceptions ***** -->
         {% if exceptions|length > 0 %}
-        <h4 class="locationSection">Calendar Exceptions:</h4>
-        
+        <h4 class="locationTableTitle">Calendar Exceptions:</h4>
+        <div class="locationTableTitle">
         <div id="calendarExceptions" class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
             <div class="titleRow row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -228,6 +229,7 @@
             {% endif %}
         
          {% endfor %}
+        </div>
         </div>
         
         {% endif %}
