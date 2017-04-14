@@ -40,7 +40,7 @@
                 </div>
             </div>
             
-            {% elif forloop.counter1|divisibleby:2 %}  
+            {% elif forloop.counter|divisibleby:2 %}  
             <div class="grey_row row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     {{ contact.desk_name|capfirst }}
