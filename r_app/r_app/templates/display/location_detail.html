@@ -6,9 +6,14 @@
             <h1>{{ location.location_title|capfirst }}</h1> 
             <a class="backToHome" href="{% url 'index' %}">Back to Home</a>
         </div>
+        
+        <!-- ***** If open 24 hour ***** -->
+        {% if location.open_24_hours_for_students %}
+            <h4 class="locationTableTitle"> Open 24 Hours to Rollins Students</h4>
+        {% endif %}
 
         
-         <!-- ***** Contact Info ***** -->
+        <!-- ***** Contact Info ***** -->
         {% if contacts|length > 0 %}
         <h4 class="locationSection">{{ location.location_title|capfirst }} Contact Info:</h4>
         <div class="locationTableTitle">
@@ -58,13 +63,10 @@
         </div>
         </div>
         
-        
-
-        
-        {% if location.open_24_hours_for_students %}
-            <h4 class="locationTableTitle"> Open 24 Hours to Rollins Students</h4>
         {% endif %}
-        {% endif %}
+        
+        
+        
         
          <!-- ***** Regular Hours ***** -->
         <h4 class="locationTableTitle">Regular Hours:</h4>
