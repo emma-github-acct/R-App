@@ -1,173 +1,175 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
-        <div class="jumbotron">
-            <h1>{{ location.location_title|capfirst }}</h1> 
-            <a class="backToHome" href="{% url 'index' %}">Back to Home</a>
-        </div>
-        
-        <!-- ***** If open 24 hour ***** -->
-        {% if location.open_24_hours_for_students %}
-            <h4 class="locationTableTitle"> Open 24 Hours to Rollins Students</h4>
-        {% endif %}
+    <div class="jumbotron">
+        <h1 class=jumbotronTitle>{{ location.location_title|capfirst }}</h1> 
+    </div>
 
-        
-        <!-- ***** Contact Info ***** -->
-        {% if contacts|length > 0 %}
-        <h4 class="locationSection">{{ location.location_title|capfirst }} Contact Info:</h4>
-        <div class="locationTableTitle">
-        <div id="contactInfo" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="titleRow row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    Desk Name
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    Contact Name
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    Phone Number
-                </div>
+    <!-- ***** If Exceptions Today ***** -->
+    {% if exceptions_today|length > 0 %}
+    <h4 class="exceptionTitle">CALENDAR CHANGED TODAY</h4>
+    <div class="exceptionTable col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        {% for expception in exceptions_today %}
+        <div class="row"> 
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                {% if expception.opening_time == expception.closing_time %} 
+                    Closed
+                {% else %} 
+                <h3>{{ expception.opening_time }} --- {{ expception.closing_time }}</h3>
+                {% endif %}
             </div>
-            
-            {% for contact in contacts %}
-            
-            {% if forloop.counter0|divisibleby:2 %}  
-            <div class="row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    {{ contact.desk_name|capfirst }}
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    {{ contact.contact_name|capfirst }}
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    {{ contact.phone_number|capfirst }}
-                </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h3>{{ expception.title}}</h3>
             </div>
-            
-            {% elif forloop.counter|divisibleby:2 %}  
-            <div class="grey_row row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    {{ contact.desk_name|capfirst }}
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    {{ contact.contact_name|capfirst }}
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    {{ contact.phone_number|capfirst }}
-                </div>
-            </div> 
-            {% endif %}
-            
-            {% endfor %}
+
         </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <!-- ***** If open 24 hour ***** -->
+    {% if location.open_24_hours_for_students %}
+        <h4 class="sectionHeader">** Open 24 Hours to Rollins Students **</h4>
+    {% endif %}
+
+
+    <!-- ***** Contact Info ***** -->
+    {% if contacts|length > 0 %}
+    <h4 class="sectionHeader">{{ location.location_title|capfirst }} Contact Info:</h4>
+    <div id="contactInfo" class="locationTable col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="titleRow row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                Desk Name
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                Contact Name
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                Phone Number
+            </div>
         </div>
-        
+
+        {% for contact in contacts %}
+
+        {% if forloop.counter0|divisibleby:2 %}  
+        <div class="row">
+        {% else %}
+        <div class="grey_row row">
         {% endif %}
-        
-        
-        
-        
-         <!-- ***** Regular Hours ***** -->
-        <h4 class="locationTableTitle">Regular Hours:</h4>
-        <div class="locationTable">
-        <div id="regularHours" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="titleRow row">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Day
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Open
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Close
-                </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {{ contact.desk_name|capfirst }}
             </div>
-            <div class="row">
-                <div id="monday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Monday:
-                </div>
-                <div id="mondayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.monday_open }}
-                </div>
-                <div id="mondayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.monday_close }}
-                </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {{ contact.contact_name|capfirst }}
             </div>
-            <div class="grey_row row">
-                <div id="tuesday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Tuesday:
-                </div>
-                <div id="tuesdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.tuesday_open }}
-                </div>
-                <div id="tuesdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.tuesday_close }}
-                </div>
-            </div>
-            <div class="row">
-                <div id="wednesday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Wednesday:
-                </div>
-                <div id="wednesdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.wednesday_open }}
-                </div>
-                <div id="wednesdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.wednesday_close }}
-                </div>
-            </div>
-            <div class="grey_row row">
-                <div id="thursday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Thursday:
-                </div>
-                <div id="thursdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.thursday_open }}
-                </div>
-                <div id="thursdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.thursday_close }}
-                </div>
-            </div>
-            <div class="row">
-                <div id="friday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Friday:
-                </div>
-                <div id="fridayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.friday_open }}
-                </div>
-                <div id="fridayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.friday_close }}
-                </div>
-            </div>
-            <div class="grey_row row">
-                <div id="saturday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Saturday:
-                </div>
-                <div id="saturdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.saturday_open }}
-                </div>
-                <div id="saturdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.saturday_close }}
-                </div>
-            </div>
-            <div class="row">
-                <div id="sunday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    Sunday:
-                </div>
-                <div id="sundayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.sunday_open }}
-                </div>
-                <div id="sundayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ location.sunday_close }}
-                </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {{ contact.phone_number|capfirst }}
             </div>
         </div>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+
+
+     <!-- ***** Regular Hours ***** -->
+    <h4 class="sectionHeader">Regular Hours:</h4>
+    <div id="regularHours" class="locationTable col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="titleRow row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Day
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Open
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Close
+            </div>
         </div>
-        
-        <!-- ***** Calendar Exceptions ***** -->
-        {% if exceptions|length > 0 %}
-        <h4 class="locationTableTitle">Calendar Exceptions:</h4>
-        <div class="locationTableTitle">
-        <div id="calendarExceptions" class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+        <div class="row">
+            <div id="monday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Monday:
+            </div>
+            <div id="mondayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.monday_open }}
+            </div>
+            <div id="mondayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.monday_close }}
+            </div>
+        </div>
+        <div class="grey_row row">
+            <div id="tuesday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Tuesday:
+            </div>
+            <div id="tuesdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.tuesday_open }}
+            </div>
+            <div id="tuesdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.tuesday_close }}
+            </div>
+        </div>
+        <div class="row">
+            <div id="wednesday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Wednesday:
+            </div>
+            <div id="wednesdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.wednesday_open }}
+            </div>
+            <div id="wednesdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.wednesday_close }}
+            </div>
+        </div>
+        <div class="grey_row row">
+            <div id="thursday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Thursday:
+            </div>
+            <div id="thursdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.thursday_open }}
+            </div>
+            <div id="thursdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.thursday_close }}
+            </div>
+        </div>
+        <div class="row">
+            <div id="friday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Friday:
+            </div>
+            <div id="fridayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.friday_open }}
+            </div>
+            <div id="fridayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.friday_close }}
+            </div>
+        </div>
+        <div class="grey_row row">
+            <div id="saturday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Saturday:
+            </div>
+            <div id="saturdayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.saturday_open }}
+            </div>
+            <div id="saturdayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.saturday_close }}
+            </div>
+        </div>
+        <div class="row">
+            <div id="sunday" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                Sunday:
+            </div>
+            <div id="sundayOpen" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.sunday_open }}
+            </div>
+            <div id="sundayClose" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{ location.sunday_close }}
+            </div>
+        </div>
+    </div>
+
+    <!-- ***** Calendar Exceptions ***** -->
+    {% if exceptions|length > 0 %}
+    <h4 class="sectionHeader">Calendar Exceptions:</h4>
+    <div class="locationTableTitle">
+        <div id="calendarExceptions" class="locationTable col-xs-12 col-sm-12 col-md-10 col-lg-10">
             <div class="titleRow row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     Title
@@ -186,56 +188,38 @@
                 </div>
             </div>
 
-        {% for excep in exceptions %}
-            
-            {% if forloop.counter0|divisibleby:2 %}
-    
-            <div class="row">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ excep.title}}
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{ excep.event_title }}
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ excep.location_title }}
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{ excep.date }}
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{ excep.opening_time }} - {{ excep.closing_time }}
-                </div>
-            </div>
-            
-            {% elif forloop.counter|divisibleby:2 %}
-            
-            <div class="grey_row row">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ excep.title}}
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{ excep.event_title }}
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{ excep.location_title }}
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{ excep.date }}
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{ excep.opening_time }} - {{ excep.closing_time }}
-                </div>
-            </div>
-            
-            {% endif %}
-        
-         {% endfor %}
-        </div>
-        </div>
-        
-        {% endif %}
+            {% for excep in exceptions %}
 
-</div>
+            {% if forloop.counter0|divisibleby:2 %}
+                <div class="row">
+            {% else %}
+                <div class="grey_row row">
+            {% endif %}
+
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ excep.title}}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.event_title }}
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{ excep.location_title }}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {{ excep.date }}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {% if excep.opening_time == excep.closing_time %} 
+                        Closed
+                    {% else %} 
+                        {{ excep.opening_time }} - {{ excep.closing_time }}
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div> 
+    {% endif %}
+
 
 {% endblock %}

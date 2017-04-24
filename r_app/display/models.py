@@ -9,7 +9,8 @@ class CalendarException(models.Model):
     event_title = models.ForeignKey(
         "EventsCalendar",
         on_delete=models.CASCADE,
-        null=True
+        null=True,
+        blank=True,
     )
     date = models.DateField()
     opening_time = models.TimeField()

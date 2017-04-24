@@ -9,8 +9,18 @@
     font: yellow;
 }
 
-h1 {
+.jumbotronTitle {
     color: yellow !important;
+}
+
+.nav li {
+   float:left;
+    width:10em;
+}
+.nav li a:link {
+display: block;
+width: 100%;
+text-align:center;
 }
 
 /* Location Button Page */
@@ -32,9 +42,15 @@ h1 {
 
 /* Location Detail Page */
 
-.backToHome {
-    text-decoration: underline;
-    color: yellow;
+.sectionHeader {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    clear:both;
+}
+
+.exceptionTitle {
+    color: red;
+    font-style: italic;
 }
 
 .titleRow {
@@ -48,12 +64,13 @@ h1 {
     background-color: lightgrey;
 }
 
-.locationTableTitle {
-    padding-top: 10px;
-    padding-bottom: 5px;
-    clear:both;
-}
-
 .locationTable {
     margin-left: 30px;
+}
+
+.exceptionTable {
+    margin-left: 30px;
+    margin-bottom: 20px;
+    border: solid;
+    border-color: red;
 }

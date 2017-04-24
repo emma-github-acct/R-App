@@ -13,6 +13,7 @@ RAPP.LocationManager = ( function() {
     var WEEKDAY_IDS = "li";
     var OPEN_24_HOUR = "open24Hour";
     var REG_TIME_DIV = "#RegularHours"; 
+    var EXCEP_TODAY_DIV = "#execptionsToday";
     
     /**** Private Methods ****/
     
@@ -105,6 +106,13 @@ RAPP.LocationManager = ( function() {
             var locationToTimeObject = createIdToTimeIdsObject( locIds, timeIds );
             return createTimeIdtoTimeValueObject( locationToTimeObject );
         }, 
+        
+        getExceptionTimeIdtoExceptionTimeValueObject: function( ) {
+            var locIds = collectIds( LOCATION_DIV, LOCATION_IDS );
+            var timeIds = collectIds( EXCEP_TODAY_DIV, TIME_IDS );
+            var locationToTimeObject = createIdToTimeIdsObject( locIds, timeIds );
+            return createTimeIdtoTimeValueObject( locationToTimeObject );
+        },
 
         getWeekdayIdsToTimeIdsObject: function() {
             var weekdayIds = collectIds( REG_TIME_DIV, WEEKDAY_IDS );

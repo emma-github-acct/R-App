@@ -88,26 +88,45 @@ RAPP.LocationButtonStyler = ( function() {
         var _today = getTodaysTimeIds();
         var currentLocationTimes = {}
         var timeIdAndValue = RAPP.LocationManager.getTimeIdtoTimeValueObject_Location();
-        var openTimeArray;
-        var closeTimeArray;
+
         for ( loc in _today ) {
-            currentTimeArray = _today[loc];
-            for ( var j = 0; j < currentTimeArray.length; j++ ) {
-                if ( currentTimeArray[ j ].includes( OPEN )){
-                    openId = currentTimeArray[ j ];
-                    openTimeArray = timeIdAndValue[ openId ];
+            if ( hasExceptionsToday( loc )) {
+                var exceptionOpenArray;
+                var exceptionCloseArray;
+                var exceptionObj = getExceptionsToday( loc );
+                
+                for ( var exceptionId in exceptionObj ) {
+                    if ( exceptionId.includes( OPEN )){
+                        exceptionOpenArray = exceptionObj[ exceptionId ];
+                    }
+                    if ( exceptionId.includes( CLOSE )){
+                        exceptionCloseArray = exceptionObj[ exceptionId ];
+                    }
                 }
-                if ( currentTimeArray[ j ].includes( CLOSE )){
-                    closeId = currentTimeArray[ j ];
-                    closeTimeArray = timeIdAndValue[ closeId ];
+                currentLocationTimes[ loc ] = {
+                    OPEN: exceptionOpenArray,
+                    CLOSE: exceptionCloseArray
+                };
+
+            } else {
+                var currentTimeArray = _today[loc];
+                for ( var j = 0; j < currentTimeArray.length; j++ ) {
+                    if ( currentTimeArray[ j ].includes( OPEN )){
+                        var openId = currentTimeArray[ j ];
+                        openTimeArray = timeIdAndValue[ openId ];
+                    }
+                    if ( currentTimeArray[ j ].includes( CLOSE )){
+                        var closeId = currentTimeArray[ j ];
+                        closeTimeArray = timeIdAndValue[ closeId ];
+                    }
                 }
+                currentLocationTimes[ loc ] = {
+                    OPEN: openTimeArray,
+                    CLOSE: closeTimeArray
+                };
             }
-            currentLocationTimes[ loc ] = {
-                OPEN: openTimeArray,
-                CLOSE: closeTimeArray
-            };
         }
-        return currentLocationTimes;
+         return currentLocationTimes;
     };   
     
     // TO DO: when times include minutes as well
@@ -188,6 +207,36 @@ RAPP.LocationButtonStyler = ( function() {
         var locId = location_id + OPEN_24_HOUR;
         var found = $.inArray( locId, locAlwaysOpenToStudents ) > -1;
         return found;
+    };
+    
+    /*
+     * params: location_id location if (example #Library)
+     * returns: {boolean} If location has a calendar exception from regualr hours today 
+     */
+    var hasExceptionsToday = function( location_id ) {
+        var hasExceptions = false;
+        var object = RAPP.LocationManager.getExceptionTimeIdtoExceptionTimeValueObject();
+        for ( var loc_id in object ){
+            if ( loc.includes( location_id )){
+                hasExceptions = true;
+            }
+        }
+        return hasExceptions; 
+    };
+    
+    /*
+     * params: location_id location if (example #Library)
+     * returns: {object} key is ids (ex: #Library-exceptionsClose) value is array of times 
+     */
+    var getExceptionsToday = function( location_id ) {
+        var exceptionTimesForThisLocation = {};
+        var object = RAPP.LocationManager.getExceptionTimeIdtoExceptionTimeValueObject();
+        for ( var loc_id in object ){
+            if ( loc_id.includes( location_id )){
+                exceptionTimesForThisLocation[loc_id] = object[loc_id];
+            }
+        }
+        return exceptionTimesForThisLocation; 
     };
     
     /*
