@@ -4,6 +4,7 @@ from .models import Location
 from .models import Contact
 from .models import CalendarException
 from .models import EventsCalendar
+from .models import ReportFlag
 
 class LocationAdmin(admin.ModelAdmin):
 	list_display = ['location_title', 'map_id', 'monday_open', 'monday_close', 'tuesday_open', 'tuesday_close', 'wednesday_open', 'wednesday_close', 'thursday_open', 'thursday_close', 'friday_open', 'friday_close', 'saturday_open', 'saturday_close', 'sunday_open', 'sunday_close']
@@ -16,8 +17,12 @@ class EventsCalendarAdmin(admin.ModelAdmin):
     
 class CalendarExceptionAdmin(admin.ModelAdmin):
     list_display = ['title', 'location_title', 'date', 'opening_time', 'closing_time']
+    
+class ReportFlagAdmin(admin.ModelAdmin):
+    list_display = [ 'location', 'description', 'created_date'];
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(EventsCalendar, EventsCalendarAdmin)
 admin.site.register(CalendarException, CalendarExceptionAdmin)
+admin.site.register(ReportFlag, ReportFlagAdmin)

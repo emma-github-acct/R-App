@@ -44,27 +44,37 @@ RAPP.LocationManager = ( function() {
         return locationsOpen24Hours;
     }
     
-    var addTimeToContainer = function( locationId, timeId , object ) {
-        if ( timeId.includes( locationId )) {
-            if ( !object[ locationId ] ){
-                object[ locationId ] = [ timeId ];
-            }
-            else {
-                object[ locationId ].push( timeId );
-            }
-        }      
-    };
     
     var createIdToTimeIdsObject = function( _ids, _timeIds ) {  
         var idToTimeIdsObject = {};
         for ( var i = 0; i < _timeIds.length; i++ ) {
-            for ( var j = 0; j < _timeIds.length; j++ ) {
+            for ( var j = 0; j < _ids.length; j++ ) {
                 var _timeId = _timeIds[ i ];
                 var _id =  _ids[ j ];
-                addTimeToContainer( _id, _timeId, idToTimeIdsObject );   
+                
+                if ( _timeId.includes( _id )) {
+                    if ( !idToTimeIdsObject[ _id ] ){
+                        idToTimeIdsObject[ _id ] = [ _timeId ];
+                    }
+                    else {
+                        idToTimeIdsObject[ _id ].push( _timeId );
+                    }
+                }
             } 
         }
         return idToTimeIdsObject;
+    }
+    
+    var createExceptionsIdToTimeIdsObject = function( _ids, _timeIds ) {  
+        var exceptionIdToTimeIdsObject = {};
+        for ( var i = 0; i < _ids.length; i++ ) {
+            for ( var j = 0; j < _timeIds.length; j++ ) {
+                var _id =  _ids[ i ];
+                var _timeId = _timeIds[ j ];
+                exceptionIdToTimeIdsObject = addTimeToContainer( _id, _timeId, exceptionIdToTimeIdsObject );   
+            } 
+        }
+        return exceptionIdToTimeIdsObject;
     }
     
     var createTimeIdtoTimeValueObject = function( locationToTimeObject ) {
@@ -110,8 +120,8 @@ RAPP.LocationManager = ( function() {
         getExceptionTimeIdtoExceptionTimeValueObject: function( ) {
             var locIds = collectIds( LOCATION_DIV, LOCATION_IDS );
             var timeIds = collectIds( EXCEP_TODAY_DIV, TIME_IDS );
-            var locationToTimeObject = createIdToTimeIdsObject( locIds, timeIds );
-            return createTimeIdtoTimeValueObject( locationToTimeObject );
+            var locationToExcepTimeObject = createIdToTimeIdsObject( locIds, timeIds );
+            return createTimeIdtoTimeValueObject( locationToExcepTimeObject );
         },
 
         getWeekdayIdsToTimeIdsObject: function() {

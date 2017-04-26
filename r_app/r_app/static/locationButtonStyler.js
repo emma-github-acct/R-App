@@ -217,7 +217,7 @@ RAPP.LocationButtonStyler = ( function() {
         var hasExceptions = false;
         var object = RAPP.LocationManager.getExceptionTimeIdtoExceptionTimeValueObject();
         for ( var loc_id in object ){
-            if ( loc.includes( location_id )){
+            if ( loc_id.includes( location_id )){
                 hasExceptions = true;
             }
         }

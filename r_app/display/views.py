@@ -1,10 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
 from datetime import datetime, date
+from django.utils import timezone
 
 from display.models import Location
 from display.models import Contact
 from display.models import CalendarException
+from .forms import ReportFlagForm
+
+def report_flag(request):
+    if request.method == "POST":
+        form = ReportFlagForm(request.POST)
+        if form.is_valid():
+            flagmod = form.save(commit=True)
+            flagmod.save()
+            return redirect('index')
+    else:
+        form = ReportFlagForm()
+    return render(request, 'display/report_flag.html', {
+        'form': form
+    })
 
 def index(request):
     locations = Location.objects.all()
@@ -21,7 +36,7 @@ def location_detail(request, id):
         contacts = Contact.objects.filter(location_title=location)
         exceptions = CalendarException.objects.filter(location_title=location)
         today = date.today()
-        exceptions_today = CalendarException.objects.filter(date__year=today.year, date__month=today.month, date__day=today.day)
+        exceptions_today = CalendarException.objects.filter(date__year=today.year, date__month=today.month, date__day=today.day, location_title=location)
     except Location.DoesNotExist:
         raise Http404('This item does not exist')
     return render(request, 'display/location_detail.html', {

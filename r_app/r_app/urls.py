@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^location/(?P<id>\d+)/', views.location_detail, name='location_detail'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^report/flag/$', views.report_flag, name='report_flag'),
 ]

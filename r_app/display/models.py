@@ -1,4 +1,17 @@
 from django.db import models
+from django.utils import timezone
+time_help_text = "Military time only"
+
+class ReportFlag(models.Model):
+    location = models.CharField(max_length=200)
+    description = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    
+    def __unicode__(self):
+        return self.location
+    
+    def __str__(self):
+        return self.location
 
 class CalendarException(models.Model):
     title = models.CharField(max_length=30)
@@ -35,7 +48,6 @@ class EventsCalendar(models.Model):
     def __str__(self):
         return self.event_title
     
-    
 class Contact(models.Model):
     desk_name = models.CharField(max_length=40)
     location_title = models.ForeignKey(
@@ -56,20 +68,20 @@ class Location(models.Model):
     location_title = models.CharField(max_length=20)
     map_id = models.IntegerField(default=0, unique=True)
     open_24_hours_for_students = models.BooleanField(default=False)
-    monday_open = models.TimeField()
-    monday_close = models.TimeField()
-    tuesday_open = models.TimeField()
-    tuesday_close = models.TimeField()
-    wednesday_open = models.TimeField()
-    wednesday_close = models.TimeField()
-    thursday_open = models.TimeField()
-    thursday_close = models.TimeField()
-    friday_open = models.TimeField()
-    friday_close = models.TimeField()
-    saturday_open = models.TimeField()
-    saturday_close = models.TimeField()
-    sunday_open = models.TimeField()
-    sunday_close = models.TimeField()
+    monday_open = models.TimeField(help_text=time_help_text)
+    monday_close = models.TimeField(help_text=time_help_text)
+    tuesday_open = models.TimeField(help_text=time_help_text)
+    tuesday_close = models.TimeField(help_text=time_help_text)
+    wednesday_open = models.TimeField(help_text=time_help_text)
+    wednesday_close = models.TimeField(help_text=time_help_text)
+    thursday_open = models.TimeField(help_text=time_help_text)
+    thursday_close = models.TimeField(help_text=time_help_text)
+    friday_open = models.TimeField(help_text=time_help_text)
+    friday_close = models.TimeField(help_text=time_help_text)
+    saturday_open = models.TimeField(help_text=time_help_text)
+    saturday_close = models.TimeField(help_text=time_help_text)
+    sunday_open = models.TimeField(help_text=time_help_text)
+    sunday_close = models.TimeField(help_text=time_help_text)
     
     def __unicode__(self):
         return self.location_title
