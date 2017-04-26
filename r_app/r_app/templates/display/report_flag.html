@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1 class=jumbotronTitle>Flag Error
+        <span class="flagBadge badge" style="margin-left:20px">
+            <span class="flag glyphicon glyphicon-flag"></span>
+        </span>
+    </h1> 
+
+</div>
+
+
+<div class="container">
+    <form method="POST" class="post-form">{% csrf_token %}
+            
+    {{ form.non_field_errors }}
+    <div class="fieldWrapper">
+
+        <span class="reportFlagHelperText badge">
+            <h3 style="margin-top:5px">Please enter the name of location you want to flag</h3>
+        </span>
+        <br>
+        {{ form.location.errors }}
+        {{ form.location.label_tag }}
+        {{ form.location }}
+    </div>
+
+    <div class="fieldWrapper">
+        <span class="reportFlagHelperText badge">
+            <h3 style="margin-top:5px">
+                Please give a detailed description about any incorrect information</h3>
+        </span>
+        <br>
+        {{ form.description.errors }}
+        {{ form.description.label_tag }}
+        {{ form.description }}
+    </div>
+        
+        <button type="submit" class="btn btn-primary">Flag</button>
+    </form>
+</div>
+
+{% endblock %}
