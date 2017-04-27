@@ -1,5 +1,5 @@
 
-/* Header */
+/***** Header *****/
 
 .container {
     margin-bottom: 50px;
@@ -7,13 +7,24 @@
 .jumbotron {
     background-color: #4259f4 !important;
     font: yellow;
+    padding-bottom: 35px !important;
 }
 
-h1 {
+.jumbotronTitle {
     color: yellow !important;
 }
 
-/* Location Button Page */
+.nav li {
+   float:left;
+    width:10em;
+}
+.nav li a:link {
+display: block;
+width: 100%;
+text-align:center;
+}
+
+/***** Location Button Page *****/
 
 .location_button {
     height: inherit;
@@ -30,11 +41,22 @@ h1 {
     width: 100%;
 }
 
-/* Location Detail Page */
+/***** Location Detail Page *****/
 
-.backToHome {
-    text-decoration: underline;
-    color: yellow;
+.flag {
+    color: red;
+    font-size: 25px;
+}
+
+.sectionHeader {
+    padding-top: 40px;
+    padding-bottom: 5px;
+    clear:both;
+}
+
+.exceptionTitle {
+    color: red;
+    font-style: italic;
 }
 
 .titleRow {
@@ -48,12 +70,45 @@ h1 {
     background-color: lightgrey;
 }
 
-.locationTableTitle {
-    padding-top: 10px;
-    padding-bottom: 5px;
+.locationTable {
+    margin-left: 30px;
     clear:both;
 }
 
-.locationTable {
+.exceptionTable {
     margin-left: 30px;
+    margin-bottom: 20px;
+    border: solid;
+    border-color: red;
+}
+
+
+.flagDiv {
+    clear:both;
+    padding-top: 45px;
+}
+
+.flagLabel {
+    padding-top: 30px;
+    font-size: 15px;
+    color: red;
+    text-decoration: underline;
+}
+
+.flagBadge.badge {
+    font-size: 15px;
+    background-color: yellow;
+    color: red;
+}
+
+/***** Report Flags Page *****/
+
+.reportFlagHelperText.badge {
+    background-color: #4259f4 !important;
+    color: yellow;
+    margin-bottom: 10px;
+}
+
+.fieldWrapper {
+    margin-bottom: 45px;
 }

@@ -1,110 +1,108 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
-        <div class="jumbotron">
-            <h1>Welcome to R-App</h1> 
-            <p>For all Rollins Info</p>
-        </div>
-        
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">R-App</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="http://campus-map.rollins.edu/map/index.php?id=65" class = "external">Campus Map</a></li>
+<div class="jumbotron">
+    <h1 class=jumbotronTitle>Welcome to R-App</h1> 
+    <p>For all Rollins Info</p>
+</div>       
+<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+    <h4>Key:</h4>
+    <div class="row"><button class="key_button btn btn-success">Open</button></div>
+    <div class="row"><button class="key_button btn btn-warning">Closing Soon</button></div>
+    <div class="row"><button class="key_button btn btn-danger">Closed</button></div>
+    <div class="row"><button class="key_button btn btn-primary">Open to Rollins</button></div>
+</div>
+
+<!-- Exceptions -->
+<div id="execptionsToday" style="display:none">
+{% for expception in exceptions_today %}
+<span id={{expception.location_title | cut:" " | add:"-exceptionsOpen"}}>
+    {{expception.opening_time | cut:" "}}
+</span>
+<span id={{expception.location_title | cut:" " | add:"-exceptionsClose"}}>
+    {{expception.closing_time | cut:" "}}
+</span>
+{% endfor %}
+
+ </div>
+
+<!-- Location Buttons -->
+<div id="locationButtons" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+{% for location in locations %}
+<button id={{ location.location_title | cut:" " }} class="location_button btn btn-primary"
+        onClick="location.href='{% url 'location_detail' location.id %}'">
+    <h4>{{ location.location_title }}</h4>
+</button>
+<br>
+
+<div class="locationRegularHours" style="display:none">
+
+    <span id={{ location.location_title | cut:" " | add:"-open24Hour" }}>
+            {{ location.open_24_hours_for_students}}
+    </span>
+
+    <ul>
+        <li> Monday:
+            <span id={{ location.location_title | cut:" " | add:"-mondayOpen" }}>
+                {{ location.monday_open | cut:" "}}
+            </span> -
+            <span id={{ location.location_title | cut:" " | add:"-mondayClose" }}>
+                {{ location.monday_close | cut:" "}}
+            </span>
+        </li>
+        <li> Tuesday:
+            <span id={{ location.location_title | cut:" " | add:"-tuesdayOpen" }}>
+                {{ location.tuesday_open | cut:" "}}
+            </span> -
+            <span id={{ location.location_title | cut:" " | add:"-tuesdayClose" }}>
+                {{ location.tuesday_close | cut:" "}}
+            </span>
+        </li>
+        <li> Wednesday:
+            <span id={{ location.location_title | cut:" " | add:"-wednesdayOpen" }}>
+                {{ location.wednesday_open | cut:" "}}
+            </span> -
+            <span id={{ location.location_title | cut:" " | add:"-wednesdayClose" }}>
+                {{ location.wednesday_close | cut:" "}}
+            </span>
+        </li>
+        <li> Thrusday:
+            <span id={{ location.location_title | cut:" " | add:"-thursdayOpen" }}>
+                {{ location.thursday_open | cut:" "}}
+            </span> -
+            <span id={{ location.location_title | cut:" " | add:"-thursdayClose" }}>
+                {{ location.thursday_close | cut:" "}}
+            </span>
+        </li>
+        <li> Friday:
+            <span id={{ location.location_title | cut:" " | add:"-fridayOpen" }}>
+                {{ location.friday_open | cut:" "}}
+            </span> -
+            <span id={{ location.location_title | cut:" " | add:"-fridayClose" }}>
+                {{ location.friday_close | cut:" "}}
+            </span>
+        </li>
+        <li> Saturday:
+            <span id={{ location.location_title | cut:" " | add:"-saturdayOpen" }}>
+                {{ location.saturday_open | cut:" "}}
+            </span> -
+            <span id={{ location.location_title | cut:" " | add:"-saturdayClose" }}>
+                {{ location.saturday_close | cut:" "}}
+            </span>
+        </li>
+        <li> Sunday:
+            <span id={{ location.location_title | cut:" " | add:"-sundayOpen" }}>
+                {{ location.sunday_open | cut:" "}}
+            </span> -
+            <span id={{ location.location_title | cut:" " | add:"-sundayClose" }}>
+                {{ location.sunday_close | cut:" "}}
+            </span>
+        </li>
     </ul>
-  </div>
-</nav>
-        
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <h4>Key:</h4>
-            <div class="row"><button class="key_button btn btn-success">Open</button></div>
-            <div class="row"><button class="key_button btn btn-warning">Closing Soon</button></div>
-            <div class="row"><button class="key_button btn btn-danger">Closed</button></div>
-            <div class="row"><button class="key_button btn btn-primary">Open to Rollins</button></div>
-        </div>
-        
+</div>
 
-    <div id="locationButtons" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-       {% for location in locations %}
-        <button id={{ location.location_title | cut:" " }} class="location_button btn btn-primary"
-                onClick="location.href='{% url 'location_detail' location.id %}'">
-            <h4>{{ location.location_title }}</h4>
-        </button>
-    <br>
-    
-    <div class="locationRegularHours" style="display:none">
-        
-        <span id={{ location.location_title | cut:" " | add:"-open24Hour" }}>
-                {{ location.open_24_hours_for_students}}
-        </span>
-        
-        <ul>
-            <li> Monday:
-                <span id={{ location.location_title | cut:" " | add:"-mondayOpen" }}>
-                    {{ location.monday_open | cut:" "}}
-                </span> -
-                <span id={{ location.location_title | cut:" " | add:"-mondayClose" }}>
-                    {{ location.monday_close | cut:" "}}
-                </span>
-            </li>
-            <li> Tuesday:
-                <span id={{ location.location_title | cut:" " | add:"-tuesdayOpen" }}>
-                    {{ location.tuesday_open | cut:" "}}
-                </span> -
-                <span id={{ location.location_title | cut:" " | add:"-tuesdayClose" }}>
-                    {{ location.tuesday_close | cut:" "}}
-                </span>
-            </li>
-            <li> Wednesday:
-                <span id={{ location.location_title | cut:" " | add:"-wednesdayOpen" }}>
-                    {{ location.wednesday_open | cut:" "}}
-                </span> -
-                <span id={{ location.location_title | cut:" " | add:"-wednesdayClose" }}>
-                    {{ location.wednesday_close | cut:" "}}
-                </span>
-            </li>
-            <li> Thrusday:
-                <span id={{ location.location_title | cut:" " | add:"-thursdayOpen" }}>
-                    {{ location.thursday_open | cut:" "}}
-                </span> -
-                <span id={{ location.location_title | cut:" " | add:"-thursdayClose" }}>
-                    {{ location.thursday_close | cut:" "}}
-                </span>
-            </li>
-            <li> Friday:
-                <span id={{ location.location_title | cut:" " | add:"-fridayOpen" }}>
-                    {{ location.friday_open | cut:" "}}
-                </span> -
-                <span id={{ location.location_title | cut:" " | add:"-fridayClose" }}>
-                    {{ location.friday_close | cut:" "}}
-                </span>
-            </li>
-            <li> Saturday:
-                <span id={{ location.location_title | cut:" " | add:"-saturdayOpen" }}>
-                    {{ location.saturday_open | cut:" "}}
-                </span> -
-                <span id={{ location.location_title | cut:" " | add:"-saturdayClose" }}>
-                    {{ location.saturday_close | cut:" "}}
-                </span>
-            </li>
-            <li> Sunday:
-                <span id={{ location.location_title | cut:" " | add:"-sundayOpen" }}>
-                    {{ location.sunday_open | cut:" "}}
-                </span> -
-                <span id={{ location.location_title | cut:" " | add:"-sundayClose" }}>
-                    {{ location.sunday_close | cut:" "}}
-                </span>
-            </li>
-        </ul>
-    </div>
+{% endfor %}
 
-       {% endfor %}
-    
-    </div>
 </div>
 
 {% endblock %}
