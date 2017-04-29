@@ -2,6 +2,14 @@ from django.db import models
 from django.utils import timezone
 time_help_text = "Military time only"
 
+class UsefulLink(models.Model):
+    link_title = models.CharField(max_length=50)
+    url = models.CharField(max_length=50)
+    location_title = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE
+    )
+
 class ReportFlag(models.Model):
     location = models.CharField(max_length=200)
     description = models.TextField()

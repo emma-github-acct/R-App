@@ -282,6 +282,32 @@
         </div>
     </div>
     {% endif %}
+
+    <!-- ***** Useful Links ***** -->
+    {% if links|length > 0 %}
+    <div class="section row">
+        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
+            <button class="sectionBtn btn" style="background-color:white; width: 100%"> 
+                <h4 class="sectionTitle">Useful Links:</h4>
+                <div class="locationTable">
+
+                    {% for link in links %}
+
+                    {% if forloop.counter0|divisibleby:2 %}  
+                    <div class="data_row row">
+                    {% else %}
+                    <div class="data_row grey_row row">
+                    {% endif %}
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                           <a class="external" href="{{link.url}}"><h5>Library Home Page</h5></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </button>
+        </div>
+    </div>
+    {% endif %}
  
     <button class="btn" style="background-color:yellow">   
         <div class="flagDiv">  

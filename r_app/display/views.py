@@ -6,6 +6,7 @@ from django.utils import timezone
 from display.models import Location
 from display.models import Contact
 from display.models import CalendarException
+from display.models import UsefulLink
 from .forms import ReportFlagForm
 
 def report_flag(request):
@@ -34,6 +35,7 @@ def location_detail(request, id):
     try:
         location = Location.objects.get(id=id)
         contacts = Contact.objects.filter(location_title=location)
+        links = UsefulLink.objects.filter(location_title=location)
         exceptions = CalendarException.objects.filter(location_title=location)
         today = date.today()
         exceptions_today = CalendarException.objects.filter(date__year=today.year, date__month=today.month, date__day=today.day, location_title=location)
@@ -44,4 +46,5 @@ def location_detail(request, id):
         'contacts': contacts,
         'exceptions': exceptions,
         'exceptions_today': exceptions_today,
+        'links': links,
     })
