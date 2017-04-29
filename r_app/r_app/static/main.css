@@ -116,7 +116,8 @@
 }
 
 .locationTable {
-    margin-left: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     clear:both;
 }
 
@@ -148,6 +149,13 @@
     }
 }
 
+
+@media only screen and (max-width: 535px) {
+   .titleRow {
+       font-size: 12px !important;
+    }
+}
+
 @media only screen and (max-width: 465px) {
    .titleRow {
        font-size: 14px !important;
@@ -157,9 +165,12 @@
     }
 }
 
-@media only screen and (max-width: 535px) {
+@media only screen and (max-width: 375px) {
    .titleRow {
        font-size: 12px !important;
+    }
+    .data_row {
+        font-size: 10px !important
     }
 }
 
