@@ -18,10 +18,11 @@
    float:left;
     width:10em;
 }
+
 .nav li a:link {
-display: block;
-width: 100%;
-text-align:center;
+    display: block;
+    width: 100%;
+    text-align:center;
 }
 
 /***** Location Button Page *****/
@@ -41,6 +42,43 @@ text-align:center;
     width: 100%;
 }
 
+@media only screen and (min-width: 1019px) {
+   .key_button {
+       font-size: 17px !important;
+    }
+}
+
+@media only screen and (max-width: 660px) {
+   .key_button {
+       font-size: 11px !important;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+   .key_button {
+       font-size: 12px !important;
+       padding-right: 0px !important;
+       padding-left: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 536px) {
+   .key_button {
+       font-size: 10px !important;
+       padding-right: 0px !important;
+       padding-left: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 465px) {
+   .key_button {
+       font-size: 7px !important;
+       padding-right: 0px !important;
+       padding-left: 0px !important;
+    }
+}
+
+
 /***** Location Detail Page *****/
 
 .flag {
@@ -48,10 +86,12 @@ text-align:center;
     font-size: 25px;
 }
 
-.sectionHeader {
-    padding-top: 40px;
-    padding-bottom: 5px;
-    clear:both;
+.sectionTitle {
+    float: left
+}
+
+.section{
+    margin-bottom: 15px;
 }
 
 .exceptionTitle {
@@ -66,12 +106,17 @@ text-align:center;
     border: solid;
 }
 
+.sectionBtn {
+    padding: 20px;
+    width: 95%
+}
+
 .grey_row.row {
     background-color: lightgrey;
 }
 
 .locationTable {
-    margin-left: 30px;
+    margin-left: 20px;
     clear:both;
 }
 
@@ -82,15 +127,11 @@ text-align:center;
     border-color: red;
 }
 
-
 .flagDiv {
     clear:both;
-    padding-top: 45px;
 }
 
 .flagLabel {
-    padding-top: 30px;
-    font-size: 15px;
     color: red;
     text-decoration: underline;
 }
@@ -100,6 +141,28 @@ text-align:center;
     background-color: yellow;
     color: red;
 }
+
+@media only screen and (min-width: 1019px) {
+   .titleRow {
+       font-size: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 465px) {
+   .titleRow {
+       font-size: 14px !important;
+    }
+    .data_row {
+        font-size: 12px !important
+    }
+}
+
+@media only screen and (max-width: 535px) {
+   .titleRow {
+       font-size: 12px !important;
+    }
+}
+
 
 /***** Report Flags Page *****/
 
@@ -111,4 +174,14 @@ text-align:center;
 
 .fieldWrapper {
     margin-bottom: 45px;
+}
+
+#id_location {
+    border: solid;
+    border-color: blue;
+}
+
+#id_description {
+    border: solid;
+    border-color: blue;
 }
