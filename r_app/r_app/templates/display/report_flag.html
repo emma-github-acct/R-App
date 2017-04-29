@@ -13,33 +13,36 @@
 
 
 <div class="container">
-    <form method="POST" class="post-form">{% csrf_token %}
-            
-    {{ form.non_field_errors }}
-    <div class="fieldWrapper">
-
-        <span class="reportFlagHelperText badge">
-            <h3 style="margin-top:5px">Please enter the name of location you want to flag</h3>
-        </span>
-        <br>
-        {{ form.location.errors }}
-        {{ form.location.label_tag }}
-        {{ form.location }}
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <form method="POST" class="post-form">{% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="row">
+                    <div class="fieldWrapper">
+                        <span class="reportFlagHelperText badge">
+                            <h3 style="margin-top:5px">Location Name:</h3>
+                            <p>Please enter the name of location you want to flag</p>
+                        </span>
+                        <br>
+                        {{ form.location.errors }}
+                        {{ form.location }}
+                    </div>
+                </div>      
+                <div class="row">
+                    <div class="fieldWrapper">
+                        <span class="reportFlagHelperText badge">
+                            <h3 style="margin-top:5px">Description:</h3>
+                            <p>Please give a detailed description about any incorrect information</p>
+                        </span>
+                        <br>
+                        {{ form.description.errors }}
+                        {{ form.description }}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Flag</button>
+            </form>
+        </div>
     </div>
-
-    <div class="fieldWrapper">
-        <span class="reportFlagHelperText badge">
-            <h3 style="margin-top:5px">
-                Please give a detailed description about any incorrect information</h3>
-        </span>
-        <br>
-        {{ form.description.errors }}
-        {{ form.description.label_tag }}
-        {{ form.description }}
-    </div>
-        
-        <button type="submit" class="btn btn-primary">Flag</button>
-    </form>
 </div>
 
 {% endblock %}
