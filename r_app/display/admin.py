@@ -5,6 +5,7 @@ from .models import Contact
 from .models import CalendarException
 from .models import EventsCalendar
 from .models import ReportFlag
+from .models import UsefulLink
 
 class LocationAdmin(admin.ModelAdmin):
 	list_display = ['location_title', 'map_id', 'monday_open', 'monday_close', 'tuesday_open', 'tuesday_close', 'wednesday_open', 'wednesday_close', 'thursday_open', 'thursday_close', 'friday_open', 'friday_close', 'saturday_open', 'saturday_close', 'sunday_open', 'sunday_close']
@@ -20,9 +21,13 @@ class CalendarExceptionAdmin(admin.ModelAdmin):
     
 class ReportFlagAdmin(admin.ModelAdmin):
     list_display = [ 'location', 'description', 'created_date'];
+    
+class UsefulLinkAdmin(admin.ModelAdmin):
+    list_display = [ 'link_title', 'url', 'location_title'];
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(EventsCalendar, EventsCalendarAdmin)
 admin.site.register(CalendarException, CalendarExceptionAdmin)
 admin.site.register(ReportFlag, ReportFlagAdmin)
+admin.site.register(UsefulLink, UsefulLinkAdmin)
