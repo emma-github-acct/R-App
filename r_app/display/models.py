@@ -34,8 +34,8 @@ class CalendarException(models.Model):
         blank=True,
     )
     date = models.DateField()
-    opening_time = models.TimeField()
-    closing_time = models.TimeField()
+    opening_time = models.TimeField(help_text=time_help_text)
+    closing_time = models.TimeField(help_text=time_help_text)
     
 class EventsCalendar(models.Model):
     #'location_title', 'event_title', 'room_id','date', 'opening_time', 'closing_time', 'event_information'
@@ -46,8 +46,8 @@ class EventsCalendar(models.Model):
     event_title = models.CharField(max_length=50)
     event_information = models.CharField(max_length=1000)
     date = models.DateField()
-    opening_time = models.TimeField()
-    closing_time = models.TimeField()
+    opening_time = models.TimeField(help_text=time_help_text)
+    closing_time = models.TimeField(help_text=time_help_text)
     room_id = models.IntegerField(default = 0)
     
     def __unicode__(self):
